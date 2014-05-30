@@ -6,8 +6,10 @@
     "_classes": "",
     "_layout": "full",
     "title": "Flip Card",
+    "displayTitle": "Flip Card",
     "body": "This is optional body text. Click the image below to reveal the text.",
-    "items": [
+    "instruction": "",
+    "_items": [
         {
             "frontImageSrc": "assets/flip_1.png",
             "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
@@ -39,8 +41,10 @@
     "_classes": "",
     "_layout": "full",
     "title": "Flip Card",
+    "displayTitle": "Flip Card",
     "body": "This is optional body text. Click the image below to reveal the text.",
-    "items": [
+    "instruction": "",
+    "_items": [
         {
             "frontImageSrc": "assets/flip_1.png",
             "backHeading": "To overcome Global Climate Change challenges, it is essential to:",

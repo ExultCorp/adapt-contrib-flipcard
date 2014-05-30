@@ -1,21 +1,8 @@
 {{! Maintainers - Himanshu Rajotia <himanshu.rajotia@credipoint.com>, CrediPoint Solutions <git@credipoint.com>}}
 <div class='flipCard-inner component-inner'>
-    {{#if title}}
-        <div class='flipCard-title component-title'>
-            <h4 class='flipCard-title-inner component-title-inner'>
-                {{{title}}}
-            </h4>
-        </div>
-    {{/if}}
-    {{#if body}}
-        <div class='flipCard-body component-body'>
-            <div class='flipCard-body-inner component-body-inner'>
-                {{{body}}}
-            </div>
-        </div>
-    {{/if}}
+    {{> component this}}
     <div class="flipCard-widget component-widget">
-        {{#each items}}
+        {{#each _items}}
             <div class='flipCard-item flipCard-item-tap'>
                 <div class='flipCard-item-front flipCard-item-face'>
                     <img src='{{{frontImageSrc}}}'

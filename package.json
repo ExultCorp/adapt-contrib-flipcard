@@ -1,22 +1,22 @@
 {
   "name": "adapt-contrib-flipCard",
-  "version": "0.0.1",
-  "description": "Flip Card Template developed by CrediPoint Solutions for Adapt Framework v1.0.0.",
+  "version": "0.0.2",
+  "description": "Flip Card Template developed by CrediPoint Solutions for Adapt Framework v1.1.0.",
   "main": "",
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/credipoint/adapt-contrib-flipCard.git"
+    "url": "git://github.com/CrediPointSolutions/adapt-contrib-flipCard.git"
   },
   "author": "CrediPointSolutions",
   "license": "GPL v3",
   "bugs": {
-    "url": "https://github.com/credipoint/adapt-contrib-flipCard/issues"
+    "url": "https://github.com/CrediPointSolutions/adapt-contrib-flipCard/issues"
   },
   "devDependencies": {
-    "karma": "~0.9",
+    "karma": "~0.10",
     "karma-mocha": "*",
     "karma-expect": "*"
   }
