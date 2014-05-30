@@ -1,0 +1,42 @@
+{{! Maintainers - Himanshu Rajotia <himanshu.rajotia@credipoint.com>, CrediPoint Solutions <git@credipoint.com>}}
+<div class='flipCard-inner component-inner'>
+    {{#if title}}
+        <div class='flipCard-title component-title'>
+            <h4 class='flipCard-title-inner component-title-inner'>
+                {{{title}}}
+            </h4>
+        </div>
+    {{/if}}
+    {{#if body}}
+        <div class='flipCard-body component-body'>
+            <div class='flipCard-body-inner component-body-inner'>
+                {{{body}}}
+            </div>
+        </div>
+    {{/if}}
+    <div class="flipCard-widget component-widget">
+        {{#each items}}
+            <div class='flipCard-item flipCard-item-tap'>
+                <div class='flipCard-item-front flipCard-item-face'>
+                    <img src='{{{frontImageSrc}}}'
+                         class='flipCard-item-frontImage'/>
+                </div>
+
+                <div class='flipCard-item-back flipCard-item-face'>
+                    <div class='flipCard-item-backHeading'>
+                    <span>
+                        {{{backHeading}}}
+                    </span>
+                    </div>
+                    <ul>
+                        {{#each backListOfOptions}}
+                            <li>
+                                {{{this}}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

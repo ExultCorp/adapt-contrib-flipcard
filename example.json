@@ -1,0 +1,67 @@
+{
+    "_id": "c-10",
+    "_parentId": "b-10",
+    "_type": "component",
+    "_component": "flipCard",
+    "_classes": "",
+    "_layout": "full",
+    "title": "Flip Card",
+    "body": "This is optional body text. Click the image below to reveal the text.",
+    "items": [
+        {
+            "frontImageSrc": "assets/flip_1.png",
+            "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
+            "backListOfOptions": [
+                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
+                "Persuade the citizens of a nation to get together and work towards a development program.",
+                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
+            ]
+        },
+        {
+            "frontImageSrc": "assets/flip_2.png",
+            "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
+            "backListOfOptions": [
+                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
+                "Persuade the citizens of a nation to get together and work towards a development program.",
+                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
+            ]
+        }
+    ],
+    "_flipType": "individualFlip",
+    "_flipTime": 400
+},
+
+{
+    "_id": "c-20",
+    "_parentId": "b-20",
+    "_type": "component",
+    "_component": "flipCard",
+    "_classes": "",
+    "_layout": "full",
+    "title": "Flip Card",
+    "body": "This is optional body text. Click the image below to reveal the text.",
+    "items": [
+        {
+            "frontImageSrc": "assets/flip_1.png",
+            "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
+            "backListOfOptions": [
+                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
+                "Persuade the citizens of a nation to get together and work towards a development program.",
+                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
+            ]
+        },
+        {
+            "frontImageSrc": "assets/flip_2.png",
+            "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
+            "backListOfOptions": [
+                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
+                "Persuade the citizens of a nation to get together and work towards a development program.",
+                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
+            ]
+        }
+    ],
+    "_flipType": "singleFlip",
+    "_flipTime": 400
+}
+
+//_flipType accepts 'individualFlip' and 'singleFlip'
