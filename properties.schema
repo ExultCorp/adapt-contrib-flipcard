@@ -14,25 +14,26 @@
     "instruction": {
       "type": "string",
       "required": false,
-      "default": "",
       "inputType": "Text",
+      "default": "",
       "validators": [],
       "help": "This is the instruction text"
     },
     "_flipType": {
       "type": "string",
-      "required": false,
-      "default": "",
+      "required": true,
       "inputType": "Text",
-      "validators": [],
+      "default": "allFlip",
+      "validators": ["required"],
       "help": "'singleFlip' or 'allFlip'"
     },
     "_flipTime": {
       "type": "number",
-      "required": false,
-      "default": "",
+      "required": true,
       "inputType": "Number",
-      "validators": ["number"],
+      "title": "Flip animation time",
+      "default": 400,
+      "validators": ["required", "number"],
       "help": "How much time should the flip animation takes"
     },
     "_items": {
@@ -46,8 +47,9 @@
           "frontImageSrc": {
             "type":"string",
             "required":true,
-            "default": "",
             "inputType": "Asset:image",
+            "title": "Graphic",
+            "default": "",
             "validators": ["required"],
             "help": "Front side image source"
           },

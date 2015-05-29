@@ -9,6 +9,9 @@
   "main": "/js/adapt-contrib-flipCard.js",
   "displayName" : "FlipCard",
   "component" : "flipCard",
+  "assetFields" : [
+    "_items[].frontImageSrc"
+  ],
   "keywords": [
     "adapt-plugin",
     "adapt-component"
