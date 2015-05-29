@@ -1,0 +1,76 @@
+{
+  "type":"object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "$ref": "http://localhost/plugins/content/component/model.schema",
+  "properties":{
+    "_supportedLayout": {
+      "type": "string",
+      "required": true,
+      "enum": ["full-width", "half-width", "both"],
+      "default": "both",
+      "editorOnly": true
+    },
+    "instruction": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "inputType": "Text",
+      "validators": [],
+      "help": "This is the instruction text"
+    },
+    "_flipType": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "inputType": "Text",
+      "validators": [],
+      "help": "'singleFlip' or 'allFlip'"
+    },
+    "_flipTime": {
+      "type": "number",
+      "required": false,
+      "default": "",
+      "inputType": "Number",
+      "validators": ["number"],
+      "help": "How much time should the flip animation takes"
+    },
+    "_items": {
+      "type":"array",
+      "required":true,
+      "title":"Items",
+      "items": {
+        "type":"object",
+        "required":true,
+        "properties":{
+          "frontImageSrc": {
+            "type":"string",
+            "required":true,
+            "default": "",
+            "inputType": "Asset:image",
+            "validators": ["required"],
+            "help": "Front side image source"
+          },
+          "backHeading": {
+            "type":"string",
+            "required":false,
+            "inputType": "Text",
+            "title": "Item Heading",
+            "default": "",
+            "validators": [],
+            "help": "Enter a title text for back side of flipCard element"
+          },
+          "backBody": {
+            "type":"string",
+            "required":false,
+            "inputType": "TextArea",
+            "title": "Item Body",
+            "default": "",
+            "validators": [],
+            "help": "Enter body text for back side of flipCard element"
+          }
+        }
+      }
+    }
+  }
+}

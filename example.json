@@ -1,6 +1,6 @@
 {
-    "_id": "c-10",
-    "_parentId": "b-10",
+    "_id": "c-135",
+    "_parentId": "b-70",
     "_type": "component",
     "_component": "flipCard",
     "_classes": "",
@@ -9,33 +9,25 @@
     "displayTitle": "Flip Card",
     "body": "This is optional body text. Click the image below to reveal the text.",
     "instruction": "",
+    "_flipType": "allFlip",
+    "_flipTime": 400
     "_items": [
         {
             "frontImageSrc": "assets/flip_1.png",
             "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
-            "backListOfOptions": [
-                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
-                "Persuade the citizens of a nation to get together and work towards a development program.",
-                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
-            ]
+            "backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
         },
         {
             "frontImageSrc": "assets/flip_2.png",
             "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
-            "backListOfOptions": [
-                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
-                "Persuade the citizens of a nation to get together and work towards a development program.",
-                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
-            ]
+            "backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
         }
-    ],
-    "_flipType": "individualFlip",
-    "_flipTime": 400
+    ]
 },
 
 {
-    "_id": "c-20",
-    "_parentId": "b-20",
+    "_id": "c-135",
+    "_parentId": "b-70",
     "_type": "component",
     "_component": "flipCard",
     "_classes": "",
@@ -44,28 +36,20 @@
     "displayTitle": "Flip Card",
     "body": "This is optional body text. Click the image below to reveal the text.",
     "instruction": "",
+    "_flipType": "singleFlip",
+    "_flipTime": 400
     "_items": [
         {
             "frontImageSrc": "assets/flip_1.png",
             "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
-            "backListOfOptions": [
-                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
-                "Persuade the citizens of a nation to get together and work towards a development program.",
-                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
-            ]
+            "backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
         },
         {
             "frontImageSrc": "assets/flip_2.png",
             "backHeading": "To overcome Global Climate Change challenges, it is essential to:",
-            "backListOfOptions": [
-                "Avail technology no matter how expensive it be, to reduce greenhouse releases.",
-                "Persuade the citizens of a nation to get together and work towards a development program.",
-                "Follow rules and regulations set by the government to avoid excessive greenhouse emissions."
-            ]
+            "backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
         }
-    ],
-    "_flipType": "singleFlip",
-    "_flipTime": 400
+    ]
 }
 
-//_flipType accepts 'individualFlip' and 'singleFlip'
+//_flipType accepts 'singleFlip' and 'allFlip'

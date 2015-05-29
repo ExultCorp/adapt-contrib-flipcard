@@ -1,14 +1,14 @@
 {
   "name": "adapt-contrib-flipCard",
-  "version": "0.0.2",
-  "homepage": "https://github.com/CrediPointSolutions/adapt-contrib-flipCard",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ExultCorp/adapt-contrib-flipCard",
   "authors": [
-    "Himanshu Rajotia <himanshu.rajotia@credipoint.com>",
-    "CrediPoint Solutions <git@credipoint.com>"
+    "Himanshu Rajotia <himanshu.rajotia@exultcorp.com>"
   ],
-  "description": "Flip Card Template developed by CrediPoint Solutions for Adapt Framework v1.1.0.",
+  "description": "Flip Card Template developed by Exult Corporation for Adapt Framework v1.1.x.",
   "main": "/js/adapt-contrib-flipCard.js",
   "displayName" : "FlipCard",
+  "component" : "flipCard",
   "keywords": [
     "adapt-plugin",
     "adapt-component"

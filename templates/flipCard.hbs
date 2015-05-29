@@ -1,29 +1,26 @@
-{{! Maintainers - Himanshu Rajotia <himanshu.rajotia@credipoint.com>, CrediPoint Solutions <git@credipoint.com>}}
-<div class='flipCard-inner component-inner'>
+{{! Maintainers - Himanshu Rajotia <himanshu.rajotia@exultcorp.com>}}
+<div class="flipCard-inner component-inner">
     {{> component this}}
     <div class="flipCard-widget component-widget">
         {{#each _items}}
-            <div class='flipCard-item flipCard-item-tap'>
-                <div class='flipCard-item-front flipCard-item-face'>
-                    <img src='{{{frontImageSrc}}}'
-                         class='flipCard-item-frontImage'/>
-                </div>
-
-                <div class='flipCard-item-back flipCard-item-face'>
-                    <div class='flipCard-item-backHeading'>
-                    <span>
-                        {{{backHeading}}}
-                    </span>
-                    </div>
-                    <ul>
-                        {{#each backListOfOptions}}
-                            <li>
-                                {{{this}}}
-                            </li>
-                        {{/each}}
-                    </ul>
-                </div>
+        <div class="flipCard-item flipCard-item-tap">
+            <div class="flipCard-item-face flipCard-item-front">
+                <img src="{{{frontImageSrc}}}" class="flipCard-item-frontImage"/>
             </div>
+
+            <div class="flipCard-item-face flipCard-item-back">
+                {{#if backHeading}}
+                <div class="flipCard-item-backHeading">
+                {{{backHeading}}}
+                </div>
+                {{/if}}
+                {{#if backBody}}
+                <div class="flipCard-item-backBody">
+                {{{backBody}}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
         {{/each}}
     </div>
 </div>
