@@ -22,7 +22,9 @@
     "_flipType": {
       "type": "string",
       "required": true,
-      "inputType": "Text",
+      "enum": ["allFlip", "singleFlip"],
+      "inputType": {"type": "Select", "options": ["allFlip", "singleFlip"]},
+      "title": "Set flip type",
       "default": "allFlip",
       "validators": ["required"],
       "help": "'singleFlip' or 'allFlip'"
@@ -37,16 +39,16 @@
       "help": "How much time should the flip animation takes"
     },
     "_items": {
-      "type":"array",
-      "required":true,
-      "title":"Items",
+      "type": "array",
+      "required": true,
+      "title": "Items",
       "items": {
-        "type":"object",
-        "required":true,
-        "properties":{
+        "type": "object",
+        "required": true,
+        "properties": {
           "frontImageSrc": {
-            "type":"string",
-            "required":true,
+            "type": "string",
+            "required": true,
             "inputType": "Asset:image",
             "title": "Graphic",
             "default": "",
@@ -54,8 +56,8 @@
             "help": "Front side image source"
           },
           "backHeading": {
-            "type":"string",
-            "required":false,
+            "type": "string",
+            "required": false,
             "inputType": "Text",
             "title": "Item Heading",
             "default": "",
@@ -63,8 +65,8 @@
             "help": "Enter a title text for back side of flipCard element"
           },
           "backBody": {
-            "type":"string",
-            "required":false,
+            "type": "string",
+            "required": false,
             "inputType": "TextArea",
             "title": "Item Body",
             "default": "",
