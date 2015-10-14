@@ -1,6 +1,6 @@
-#adapt-contrib-flipCard
+#adapt-contrib-flipcard
 
-Flip Card Component/Plug-in developed by Exult Corporation for Adapt Framework v1.1.x.
+Flip Card Component/Plug-in developed by Exult Corporation for Adapt Framework v2.0.x.
 
 A basic flip card Component/Plug-in that generates cards with an image on the front face and text on the back face.
 
@@ -8,11 +8,11 @@ A basic flip card Component/Plug-in that generates cards with an image on the fr
 
 First, be sure to install the [Adapt Command Line Interface](https://github.com/adaptlearning/adapt-cli), then from the command line run:
 
-		adapt install adapt-contrib-flipCard
+		adapt install adapt-contrib-flipcard
 
 ##Usage
 
-For example JSON format, see [example.json](https://github.com/ExultCorp/adapt-contrib-flipCard/blob/master/example.json).
+For example JSON format, see [example.json](https://github.com/ExultCorp/adapt-contrib-flipcard/blob/master/example.json).
 
 Two variations are in-built in this template. All flip and single flip. I have provided examples for both below.
 
@@ -22,7 +22,7 @@ All Flip Example: All flip cards can flip at any given point of time and all wil
 		"_id":"c-135",
 		"_parentId":"b-70",
 		"_type":"component",
-		"_component":"flipCard",
+		"_component":"flipcard",
 		"_classes":"",
 		"_layout":"full",
 		"title": "Flip Card",
@@ -33,25 +33,31 @@ All Flip Example: All flip cards can flip at any given point of time and all wil
 		"_flipTime": 400,
 		"_items": [
 			{
-				"frontImageSrc":"assets/flip_1.png",
-				"backHeading":"To overcome Global Climate Change challenges, it is essential to:",
-				"backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
+				"frontImage": {
+					"src": "course/en/images/flip_1.png",
+					"alt": "flipcard item 1 graphic alt text here."
+				},
+				"backTitle": "Heading 1",
+				"backBody": "This is display text 1."
 			},
 			{
-				"frontImageSrc":"assets/flip_2.png",
-				"backHeading":"To overcome Global Climate Change challenges, it is essential to:",
-				"backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
+				"frontImage": {
+					"src": "course/en/images/flip_2.png",
+					"alt": "flipcard item 1 graphic alt text here."
+				},
+				"backTitle": "Heading 2",
+				"backBody": "<ul><li>This is list item 1.</li><li>This is list item 2.</li></ul>"
 			}
 		]
 	}
 
-Single Flip Example: Only one flip card can flip at any given point of time and only one will remain open. If you click/tap on other flipCard the other open flip card will automatically close.
+Single Flip Example: Only one flip card can flip at any given point of time and only one will remain open. If you click/tap on other flipcard the other open flip card will automatically close.
 
 	{
 	 	"_id":"c-135",
 	 	"_parentId":"b-70",
 	 	"_type":"component",
-	 	"_component":"flipCard",
+	 	"_component":"flipcard",
 	 	"_classes":"",
 	 	"_layout":"full",
 	 	"title": "Flip Card",
@@ -61,28 +67,34 @@ Single Flip Example: Only one flip card can flip at any given point of time and 
 	 	"_flipType": "singleFlip",
 	 	"_flipTime": 400,
 	 	"_items": [
-	 		{
-	 			"frontImageSrc":"assets/flip_1.png",
-	 			"backHeading":"To overcome Global Climate Change challenges, it is essential to:",
-	 			"backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
-	 		},
-	 		{
-	 			"frontImageSrc":"assets/flip_2.png",
-	 			"backHeading":"To overcome Global Climate Change challenges, it is essential to:",
-	 			"backBody": "<ul><li>Avail technology no matter how expensive it be, to reduce greenhouse releases.</li><li>Persuade the citizens of a nation to get together and work towards a development program.</li>Follow rules and regulations set by the government to avoid excessive greenhouse emissions.</li></ul>"
-	 		}
-	 	]
+			{
+				"frontImage": {
+					"src": "course/en/images/flip_1.png",
+					"alt": "flipcard item 1 graphic alt text here."
+				},
+				"backTitle": "Heading 1",
+				"backBody": "This is display text 1."
+			},
+			{
+				"frontImage": {
+					"src": "course/en/images/flip_2.png",
+					"alt": "flipcard item 1 graphic alt text here."
+				},
+				"backTitle": "Heading 2",
+				"backBody": "<ul><li>This is list item 1.</li><li>This is list item 2.</li></ul>"
+			}
+		]
 	}
 
 ##Settings overview
 
-For example JSON format, see [example.json](https://github.com/ExultCorp/adapt-contrib-flipCard/blob/master/example.json)
+For example JSON format, see [example.json](https://github.com/ExultCorp/adapt-contrib-flipcard/blob/master/example.json)
 
-The following explains further settings for the flipCard component:
+The following explains further settings for the flipcard component:
 
 ####_component
 
-This value must be: `flipCard`
+This value must be: `flipcard`
 
 ####_classes
 
@@ -102,19 +114,19 @@ This value must be: `numeric` and should be use to sepecify time to flip.
 
 ####_items
 
-Each item represents one element of the flipCard. Text values can be entered for `frontImageSrc`, and `backHeading` for each element.
+Each item represents one element of the flipcard. Text values can be entered for `frontImage`, and `backTitle` for each element.
 
-####frontImageSrc
+####frontImage
 
-Enter a path to the image for front side of flipCard.
+Enter a path to the image for front side of flipcard.
 
-####backHeading
+####backTitle
 
-Enter a title text for back side of flipCard element. This text is optional.
+Enter a title text for back side of flipcard element. This text is optional.
 
 ####backBody
 
-The text entered for the body will be shown when the back side of flipCard appears. This text is optional.
+The text entered for the body will be shown when the back side of flipcard appears. This text is optional.
 
 ##Limitations
 

@@ -3,6 +3,15 @@
   "$schema": "http://json-schema.org/draft-04/schema",
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/plugins/content/component/model.schema",
+  "globals": {
+    "ariaRegion": {
+      "type": "string",
+      "required": true,
+      "default": "This component is a flipcard comprised of flippable cards containing display image. Select the front face image to flip to the back face of these card to display associated text.",
+      "inputType": "Text",
+      "validators": []
+    }
+  },
   "properties":{
     "_supportedLayout": {
       "type": "string",
@@ -14,8 +23,8 @@
     "instruction": {
       "type": "string",
       "required": false,
-      "inputType": "Text",
       "default": "",
+      "inputType": "Text",
       "validators": [],
       "help": "This is the instruction text"
     },
@@ -46,23 +55,37 @@
         "type": "object",
         "required": true,
         "properties": {
-          "frontImageSrc": {
-            "type": "string",
+          "frontImage": {
+            "type": "object",
             "required": true,
-            "inputType": "Asset:image",
             "title": "Graphic",
-            "default": "",
-            "validators": ["required"],
-            "help": "Front side image source"
+            "properties":{
+              "alt": {
+                "type": "string",
+                "required": false,
+                "default": "",
+                "inputType": "Text",
+                "validators": [],
+                "help": "The alternative text for this image"
+              },
+              "src": {
+                "type": "string",
+                "required": true,
+                "default": "",
+                "inputType": "Asset:image",
+                "validators": ["required"],
+                "help": "Front side image source"
+              }
+            }
           },
-          "backHeading": {
+          "backTitle": {
             "type": "string",
             "required": false,
             "inputType": "Text",
-            "title": "Item Heading",
+            "title": "Item Title",
             "default": "",
             "validators": [],
-            "help": "Enter a title text for back side of flipCard element"
+            "help": "Enter a title text for back side of flipcard element"
           },
           "backBody": {
             "type": "string",
@@ -71,7 +94,7 @@
             "title": "Item Body",
             "default": "",
             "validators": [],
-            "help": "Enter body text for back side of flipCard element"
+            "help": "Enter body text for back side of flipcard element"
           }
         }
       }
