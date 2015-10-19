@@ -1,0 +1,26 @@
+{{! Maintainers - Himanshu Rajotia <himanshu.rajotia@exultcorp.com>}}
+<div class="flipcard-inner component-inner" role="region" aria-label="{{_globals._components._flipcard.ariaRegion}}">
+    {{> component this}}
+    <div class="flipcard-widget component-widget clearfix">
+        {{#each _items}}
+        <div class="flipcard-item flipcard-item-tap">
+            <div class="flipcard-item-face flipcard-item-front">
+                <img src="{{frontImage.src}}" class="flipcard-item-frontImage" aria-label="{{frontImage.alt}}" tabindex="0">
+            </div>
+
+            <div class="flipcard-item-face flipcard-item-back">
+                {{#if backTitle}}
+                <div class="flipcard-item-back-title">
+                {{{backTitle}}}
+                </div>
+                {{/if}}
+                {{#if backBody}}
+                <div class="flipcard-item-back-body">
+                {{{backBody}}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
