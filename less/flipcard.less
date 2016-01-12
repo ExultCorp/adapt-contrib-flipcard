@@ -1,111 +1,117 @@
 @flipcard-item-transition: all .4s ease-in-out;
-
 @flipcard-item-rotate-Y-minus180deg: rotateY(-180deg);
 @flipcard-item-rotate-Y-plus180deg: rotateY(180deg);
 @flipcard-item-rotate-Y-0deg: rotateY(0deg);
 
 .flipcard-component {
-
-  .flipcard-item {
-    width: 48.5%;
-    height: 320px;
-    position: relative;
-    float: left;
-    -webkit-perspective: 600px;
-    -moz-perspective: 600px;
-    -ms-perspective: 600px;
-    -o-perspective: 600px;
-    perspective: 600px;
-    margin-right: 10px;
-    margin-top: 10px;
-    color: @item-text-color;
-  }
-
-  .flipcard-item-face {
-    float: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 110;
-    width: 100%;
-    height: 100%;
-    border: 1px solid @secondary-color;
-    background: @primary-color;
-    overflow: hidden;
-    cursor: pointer;
-
-    -webkit-transform-style: preserve-3d;
-      -moz-transform-style: preserve-3d;
-      -ms-transform-style: preserve-3d;
-      -o-transform-style: preserve-3d;
-      transform-style: preserve-3d;
-
-      -webkit-backface-visibility: hidden;
-      -moz-backface-visibility: hidden;
-      -ms-backface-visibility: hidden;
-      -o-backface-visibility: hidden;
-      backface-visibility: hidden;
-
-      -webkit-transition: @flipcard-item-transition;
-      -moz-transition: @flipcard-item-transition;
-      -ms-transition: @flipcard-item-transition;
-      -o-transition: @flipcard-item-transition;
-      transition: @flipcard-item-transition;
-
-    &.flipcard-item-front {
-      -webkit-transform: @flipcard-item-rotate-Y-0deg;
-      -moz-transform: @flipcard-item-rotate-Y-0deg;
-      -ms-transform: @flipcard-item-rotate-Y-0deg;
-      -o-transform: @flipcard-item-rotate-Y-0deg;
-      transform: @flipcard-item-rotate-Y-0deg;
-    }
-
-    &.flipcard-item-back {
-      padding: @item-padding;
-
-      box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      -ms-box-sizing: border-box;
-      -o-box-sizing: border-box;
-
-      -webkit-transform: @flipcard-item-rotate-Y-minus180deg;
-      -moz-transform: @flipcard-item-rotate-Y-minus180deg;
-      -ms-transform: @flipcard-item-rotate-Y-minus180deg;
-      -o-transform: @flipcard-item-rotate-Y-minus180deg;
-      transform: @flipcard-item-rotate-Y-minus180deg;
-    }
-  }
-
-  .flipcard-item .flipcard-item-frontImage {
-    width: 100%;
-    height: auto;
-  }
-
-  .flipcard-item-tap.flipcard-flip .flipcard-item-front {
-    -webkit-transform: @flipcard-item-rotate-Y-plus180deg;
-    -moz-transform: @flipcard-item-rotate-Y-plus180deg;
-    -ms-transform: @flipcard-item-rotate-Y-plus180deg;
-    -o-transform: @flipcard-item-rotate-Y-plus180deg;
-    transform: @flipcard-item-rotate-Y-plus180deg;
-  }
-
-  .flipcard-item-tap.flipcard-flip .flipcard-item-back {
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-transform: @flipcard-item-rotate-Y-0deg;
-    -moz-transform: @flipcard-item-rotate-Y-0deg;
-    -ms-transform: @flipcard-item-rotate-Y-0deg;
-    -o-transform: @flipcard-item-rotate-Y-0deg;
-    transform: @flipcard-item-rotate-Y-0deg;
-  }
-
-  @media (max-width: 774px) {
-
     .flipcard-item {
-      width: 100%;
-      height: 200px;
+        position: relative;
+        float: left;
+        width: 50%;
+        height: 320px;
+        color: @item-text-color;
+
+        -webkit-perspective: 600px;
+        -moz-perspective: 600px;
+        -ms-perspective: 600px;
+        -o-perspective: 600px;
+        perspective: 600px;
+
+        html.size-medium & {
+            width: 100%;
+        }
+
+        .flipcard-item-face {
+            position: absolute;
+            z-index: 110;
+            top: 0;
+            left: 0;
+            float: none;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            border: 1px solid @secondary-color;
+            background: @primary-color;
+
+            -webkit-transition: @flipcard-item-transition;
+            -moz-transition: @flipcard-item-transition;
+            -ms-transition: @flipcard-item-transition;
+            -o-transition: @flipcard-item-transition;
+            transition: @flipcard-item-transition;
+
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            -o-backface-visibility: hidden;
+            backface-visibility: hidden;
+
+            &.flipcard-item-front {
+                -webkit-transform: @flipcard-item-rotate-Y-0deg;
+                -moz-transform: @flipcard-item-rotate-Y-0deg;
+                -ms-transform: @flipcard-item-rotate-Y-0deg;
+                -o-transform: @flipcard-item-rotate-Y-0deg;
+                transform: @flipcard-item-rotate-Y-0deg;
+
+                .flipcard-item-frontImage {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            &.flipcard-item-back {
+                padding: @item-padding;
+
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                -o-box-sizing: border-box;
+                box-sizing: border-box;
+
+                -webkit-transform: @flipcard-item-rotate-Y-minus180deg;
+                -moz-transform: @flipcard-item-rotate-Y-minus180deg;
+                -ms-transform: @flipcard-item-rotate-Y-minus180deg;
+                -o-transform: @flipcard-item-rotate-Y-minus180deg;
+                transform: @flipcard-item-rotate-Y-minus180deg;
+            }
+        }
+
+        &.flipcard-flip {
+            .flipcard-item-front {
+                -webkit-transform: @flipcard-item-rotate-Y-plus180deg;
+                -moz-transform: @flipcard-item-rotate-Y-plus180deg;
+                -ms-transform: @flipcard-item-rotate-Y-plus180deg;
+                -o-transform: @flipcard-item-rotate-Y-plus180deg;
+                transform: @flipcard-item-rotate-Y-plus180deg;
+            }
+
+            .flipcard-item-back {
+                overflow-x: hidden;
+                overflow-y: auto;
+
+                -webkit-transform: @flipcard-item-rotate-Y-0deg;
+                -moz-transform: @flipcard-item-rotate-Y-0deg;
+                -ms-transform: @flipcard-item-rotate-Y-0deg;
+                -o-transform: @flipcard-item-rotate-Y-0deg;
+                transform: @flipcard-item-rotate-Y-0deg;
+            }
+        }
     }
 
-  }
+    html.size-large &.component-left,
+    html.size-large &.component-right {
+        .flipcard-item {
+            .flipcard-item-face {
+                width: 98%;
+                height: 98%;
+                margin: 1%;
+            }
+        }
+    }
 }
