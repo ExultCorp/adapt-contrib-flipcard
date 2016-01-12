@@ -55,7 +55,11 @@ define([
 
         // Click or Touch event handler for flip card.
         onClickFlipItem: function(event) {
-            if (event && event.preventDefault) event.preventDefault();
+            if(event && event.target.tagName.toLowerCase() === 'a') {
+                return;
+            } else {
+                event && event.preventDefault();
+            }
 
             var $selectedElement = $(event.currentTarget);
             var flipType = this.model.get('_flipType');
