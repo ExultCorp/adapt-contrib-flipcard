@@ -17,7 +17,8 @@
         -o-perspective: 600px;
         perspective: 600px;
 
-        html.size-medium & {
+        html.size-medium &,
+        html.size-small & {
             width: 100%;
         }
 
@@ -28,8 +29,9 @@
             left: 0;
             float: none;
             overflow: hidden;
-            width: 100%;
-            height: 100%;
+            width: 98%;
+            height: 98%;
+            margin: 1%;
             cursor: pointer;
             border: 1px solid @secondary-color;
             background: @primary-color;
@@ -100,17 +102,6 @@
                 -ms-transform: @flipcard-item-rotate-Y-0deg;
                 -o-transform: @flipcard-item-rotate-Y-0deg;
                 transform: @flipcard-item-rotate-Y-0deg;
-            }
-        }
-    }
-
-    html.size-large &.component-left,
-    html.size-large &.component-right {
-        .flipcard-item {
-            .flipcard-item-face {
-                width: 98%;
-                height: 98%;
-                margin: 1%;
             }
         }
     }
