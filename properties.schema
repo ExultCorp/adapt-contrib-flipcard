@@ -55,6 +55,16 @@
         "type": "object",
         "required": true,
         "properties": {
+          "_flipDirection": {
+            "type": "string",
+            "required": true,
+            "enum": ["horizontal", "vertical"],
+            "inputType": {"type": "Select", "options": ["horizontal", "vertical"]},
+            "title": "Set flip direction",
+            "default": "horizontal",
+            "validators": ["required"],
+            "help": "Direction of card flip 'horizontal' or 'vertical'"
+          },
           "frontImage": {
             "type": "object",
             "required": true,

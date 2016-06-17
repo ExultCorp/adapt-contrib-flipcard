@@ -1,66 +1,60 @@
 @flipcard-item-transition: all .4s ease-in-out;
+
+// horizontal flip
 @flipcard-item-rotate-Y-minus180deg: rotateY(-180deg);
 @flipcard-item-rotate-Y-plus180deg: rotateY(180deg);
 @flipcard-item-rotate-Y-0deg: rotateY(0deg);
 
+// vertical flip
+@flipcard-item-rotate-X-minus180deg: rotateX(-180deg);
+@flipcard-item-rotate-X-plus180deg: rotateX(180deg);
+@flipcard-item-rotate-X-0deg: rotateX(0deg);
+
+// Handles all properties
+.vendor-prefix (@property, @value) {
+	-webkit-@{property}: @value;
+	-moz-@{property}: @value;
+	-ms-@{property}: @value;
+	-o-@{property}: @value;
+	@{property}: @value;
+}
+
+// flipcard component styling
 .flipcard-component {
     .flipcard-item {
-        position: relative;
-        float: left;
-        width: 50%;
-        height: 320px;
         color: @item-text-color;
+        float: left;
+        height: 320px;
+        position: relative;
+        width: 50%;
 
-        -webkit-perspective: 600px;
-        -moz-perspective: 600px;
-        -ms-perspective: 600px;
-        -o-perspective: 600px;
-        perspective: 600px;
+        .vendor-prefix (perspective, 600px);
 
         html.size-medium &,
         html.size-small & {
+            margin-bottom: 5px;
             width: 100%;
         }
 
         .flipcard-item-face {
-            position: absolute;
-            z-index: 110;
-            top: 0;
-            left: 0;
-            float: none;
-            overflow: hidden;
-            width: 98%;
-            height: 98%;
-            margin: 1%;
-            cursor: pointer;
-            border: 1px solid @secondary-color;
             background: @primary-color;
+            border: none;
+            cursor: pointer;
+            float: none;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            z-index: 110;
+            width: 99%;
+            height: 99%;
+            margin: 0%;
 
-            -webkit-transition: @flipcard-item-transition;
-            -moz-transition: @flipcard-item-transition;
-            -ms-transition: @flipcard-item-transition;
-            -o-transition: @flipcard-item-transition;
-            transition: @flipcard-item-transition;
-
-            -webkit-transform-style: preserve-3d;
-            -moz-transform-style: preserve-3d;
-            -ms-transform-style: preserve-3d;
-            -o-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            -ms-backface-visibility: hidden;
-            -o-backface-visibility: hidden;
-            backface-visibility: hidden;
+            .vendor-prefix (transition, @flipcard-item-transition);
+            .vendor-prefix (transform-style, preserve-3d);
+            .vendor-prefix (backface-visibility, hidden);
 
             &.flipcard-item-front {
-                -webkit-transform: @flipcard-item-rotate-Y-0deg;
-                -moz-transform: @flipcard-item-rotate-Y-0deg;
-                -ms-transform: @flipcard-item-rotate-Y-0deg;
-                -o-transform: @flipcard-item-rotate-Y-0deg;
-                transform: @flipcard-item-rotate-Y-0deg;
-
                 .flipcard-item-frontImage {
                     width: 100%;
                     height: auto;
@@ -68,41 +62,103 @@
             }
 
             &.flipcard-item-back {
-                padding: @item-padding;
+                // padding: @item-padding;
+                padding: 12.5px 37.5px;
 
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                -ms-box-sizing: border-box;
-                -o-box-sizing: border-box;
-                box-sizing: border-box;
+                @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {  // tablet
+                    padding: 17.5px 52.5px;
+                }
 
-                -webkit-transform: @flipcard-item-rotate-Y-minus180deg;
-                -moz-transform: @flipcard-item-rotate-Y-minus180deg;
-                -ms-transform: @flipcard-item-rotate-Y-minus180deg;
-                -o-transform: @flipcard-item-rotate-Y-minus180deg;
-                transform: @flipcard-item-rotate-Y-minus180deg;
+                @media only screen and (min-width: (@device-width-medium + 1px)) {  // desktop
+                  padding: 20px 60px;
+                }
+
+                .vendor-prefix (box-sizing, border-box);
             }
         }
 
-        &.flipcard-flip {
-            .flipcard-item-front {
-                -webkit-transform: @flipcard-item-rotate-Y-plus180deg;
-                -moz-transform: @flipcard-item-rotate-Y-plus180deg;
-                -ms-transform: @flipcard-item-rotate-Y-plus180deg;
-                -o-transform: @flipcard-item-rotate-Y-plus180deg;
-                transform: @flipcard-item-rotate-Y-plus180deg;
+        &:nth-child(odd),
+        &.odd {
+          .flipcard-item-face { margin-right: 1%; }
+        }
+        &:nth-child(even),
+        &.even {
+          .flipcard-item-face { margin-left: 1%; }
+        }
+
+        @media all and (max-width: @device-width-medium) {
+          &:nth-child(odd),
+          &:nth-child(even),
+          &.odd,
+          &.even {
+            .flipcard-item-face {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          &:nth-child(odd),
+          &.odd {
+            .flipcard-item-face { margin-right: 0; }
+          }
+          &:nth-child(even),
+          &.even {
+            .flipcard-item-face { margin-left: 0; }
+          }
+        }
+
+        &.horizontal {
+          .flipcard-item-face {
+            &.flipcard-item-front {
+              .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
             }
 
+            &.flipcard-item-back {
+              .vendor-prefix (transform, @flipcard-item-rotate-Y-minus180deg);
+            }
+          }
+        }
+
+        &.vertical {
+          .flipcard-item-face {
+            &.flipcard-item-front {
+              .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
+            }
+
+            &.flipcard-item-back {
+              .vendor-prefix (transform, @flipcard-item-rotate-X-plus180deg);
+            }
+          }
+        }
+
+        &.flipcard-flip {
             .flipcard-item-back {
                 overflow-x: hidden;
                 overflow-y: auto;
-
-                -webkit-transform: @flipcard-item-rotate-Y-0deg;
-                -moz-transform: @flipcard-item-rotate-Y-0deg;
-                -ms-transform: @flipcard-item-rotate-Y-0deg;
-                -o-transform: @flipcard-item-rotate-Y-0deg;
-                transform: @flipcard-item-rotate-Y-0deg;
             }
+        }
+
+        &.horizontal {
+          &.flipcard-flip {
+            .flipcard-item-front {
+              .vendor-prefix (transform, @flipcard-item-rotate-Y-plus180deg);
+            }
+
+            .flipcard-item-back {
+              .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
+            }
+          }
+        }
+
+        &.vertical {
+          &.flipcard-flip {
+            .flipcard-item-front {
+              .vendor-prefix (transform, @flipcard-item-rotate-X-minus180deg);
+            }
+
+            .flipcard-item-back {
+              .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
+            }
+          }
         }
     }
 }
