@@ -4,9 +4,6 @@
  * Maintainers - Himanshu Rajotia <himanshu.rajotia@exultcorp.com>
  */
 
- $(document).ready(function() {
-
-});
 define([
     'coreViews/componentView',
     'coreJS/adapt'
