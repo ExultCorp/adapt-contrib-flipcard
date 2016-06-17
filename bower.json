@@ -1,12 +1,13 @@
 {
     "name": "adapt-contrib-flipcard",
     "framework": "^2.0.0",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "homepage": "https://github.com/ExultCorp/adapt-contrib-flipcard",
     "issues": "https://github.com/ExultCorp/adapt-contrib-flipcard/issues",
     "repository": "git://github.com/ExultCorp/adapt-contrib-flipcard.git",
     "authors": [
-        "Himanshu Rajotia <himanshu.rajotia@exultcorp.com>"
+        "Himanshu Rajotia <himanshu.rajotia@exultcorp.com>",
+        "Ciaran Duffy <ciaran@learningpool.com>"
     ],
     "description": "Flip Card Template developed by Exult Corporation for Adapt Framework v2.0.x.",
     "main": "/js/adapt-contrib-flipcard.js",
