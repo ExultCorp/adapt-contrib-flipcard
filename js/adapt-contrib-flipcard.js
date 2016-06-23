@@ -39,7 +39,6 @@ define([
 
             this.$('.flipcard-widget').imageready(_.bind(function() {
                 this.setReadyStatus();
-                this.reRender();
             }, this));
 
         },
