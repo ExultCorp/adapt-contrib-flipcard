@@ -6,7 +6,8 @@
 
 define([
     'coreViews/componentView',
-    'coreJS/adapt'
+    'coreJS/adapt',
+    'underscore'
 ], function(ComponentView, Adapt) {
 
     var Flipcard = ComponentView.extend({
@@ -30,6 +31,10 @@ define([
         postRender: function() {
             if (!Modernizr.csstransforms3d) {
                 this.$('.flipcard-item-back').hide();
+            }
+
+            if (_.isEmpty(this.model.get('_flipDirection'))) {
+                this.$('.flipcard-item').addClass('horizontal');
             }
 
             this.$('.flipcard-widget').imageready(_.bind(function() {
