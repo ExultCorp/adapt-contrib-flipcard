@@ -9,9 +9,9 @@
         "Himanshu Rajotia <himanshu.rajotia@exultcorp.com>",
         "Ciaran Duffy <ciaran@learningpool.com>"
     ],
-    "description": "Flip Card Template developed by Exult Corporation for Adapt Framework v2.0.x.",
+    "description": "A presentation component which displays one or more images which reveal text when clicked, with a flip card effect",
     "main": "/js/adapt-contrib-flipcard.js",
-    "displayName": "flipcard",
+    "displayName": "Flipcard",
     "component": "flipcard",
     "assetFields": [
         "_items[].frontImageSrc"
