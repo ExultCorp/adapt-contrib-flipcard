@@ -59,15 +59,13 @@ define([
         },
 
         // This function called on triggering of device resize and device change event of Adapt.
-        reRender: _.throttle(function() {
-            _.delay(function() {
-                var imageHeight = this.$('.flipcard-item-frontImage').eq(0).height();
+        reRender: _.debounce(function() {           
+            var imageHeight = this.$('.flipcard-item-frontImage').eq(0).height();
 
-                if (imageHeight) {
-                    this.$('.flipcard-item').height(imageHeight);
-                }
-            }, 100);
-        }, 250),
+            if (imageHeight) {
+                this.$('.flipcard-item').height(imageHeight);
+            }
+         }, 250),
 
         // Click or Touch event handler for flip card.
         onClickFlipItem: function(event) {
