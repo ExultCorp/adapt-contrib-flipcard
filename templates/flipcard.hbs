@@ -3,7 +3,7 @@
     {{> component this}}
     <div class="flipcard-widget component-widget clearfix">
         {{#each _items}}
-        <button class="flipcard-item component-item item-{{@index}} {{_flipDirection}}">
+        <div class="flipcard-item component-item item-{{@index}} {{_flipDirection}}">
             <div class="flipcard-item-face flipcard-item-front">
                 {{#if frontImage.alt}}
                 <img src="{{frontImage.src}}" class="flipcard-item-frontImage" aria-label="{{frontImage.alt}}" tabindex="0">
@@ -24,7 +24,7 @@
                 </div>
                 {{/if}}
             </div>
-        </button>
+        </div>
         {{/each}}
     </div>
 </div>
