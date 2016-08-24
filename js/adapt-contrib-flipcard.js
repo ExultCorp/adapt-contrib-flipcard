@@ -38,7 +38,14 @@ define([
             }
 
             this.$('.flipcard-widget').imageready(_.bind(function() {
-                this.reRender();
+                // Width css class for single or multiple images in flipcard.
+                if (this.$('.flipcard-inner').find('img').size() > 1) {
+                    this.$('.flipcard-item').addClass('flipcard-multiple');
+                } else {
+                    this.$('.flipcard-item').addClass('flipcard-single');
+                }
+
+                this.setFlipComponentHeight();
                 this.setReadyStatus();
             }, this));
 
@@ -58,14 +65,19 @@ define([
             });
         },
 
-        // This function called on triggering of device resize and device change event of Adapt.
-        reRender: _.debounce(function() {           
+        // This function sets the height of the flipcard component to the first image in the component.
+        setFlipComponentHeight: function() {
             var imageHeight = this.$('.flipcard-item-frontImage').eq(0).height();
 
             if (imageHeight) {
                 this.$('.flipcard-item').height(imageHeight);
             }
-         }, 250),
+        },
+
+        // This function called on triggering of device resize and device change event of Adapt.
+        reRender: function() {           
+            this.setFlipComponentHeight();
+         },
 
         // Click or Touch event handler for flip card.
         onClickFlipItem: function(event) {
