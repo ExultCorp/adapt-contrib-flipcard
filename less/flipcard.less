@@ -21,12 +21,28 @@
 
 // flipcard component styling
 .flipcard-component {
+
+    .flipcard-multiple {
+        width: 50%;
+        
+        .flipcard-item-face {
+            width: 99%;
+        }
+    }
+
+    .flipcard-single {
+        width: 100%;
+
+        .flipcard-item-face {
+            width: 100%;
+        }
+    }
+
     .flipcard-item {
         color: @item-text-color;
         float: left;
-        height: 320px;
+        min-height: 320px;
         position: relative;
-        width: 50%;
         border: 0;
         background-color: transparent !important;
         margin: 0;
@@ -54,7 +70,6 @@
             position: absolute;
             top: 0;
             z-index: 110;
-            width: 99%;
             height: 99%;
             margin: 0%;
 
