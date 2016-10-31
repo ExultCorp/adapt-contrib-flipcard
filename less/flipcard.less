@@ -19,6 +19,15 @@
 	@{property}: @value;
 }
 
+// Handles backface content opacity - !important required to override specificity
+.vendor-prefix-backface-opacity (@duration; @delay) {
+	-webkit-transition: opacity @duration @delay !important;
+	-moz-transition: opacity @duration @delay !important;
+	-ms-transition: opacity @duration @delay !important;
+	-o-transition: opacity @duration @delay !important;
+	transition: opacity @duration @delay !important;
+}
+
 // flipcard component styling
 .flipcard-component {
     .flipcard-item {
@@ -32,6 +41,15 @@
         margin: 0;
         padding: 0;
         margin-bottom: .5%;
+
+
+        &.flipcard-flip  {
+            .flipcard-item-back-title,
+            .flipcard-item-back-body {
+                opacity: 1 !important;
+                .vendor-prefix-backface-opacity(0.5s; 0.2s);
+            }
+        }
 
         &:hover {
           background-color: transparent;
@@ -75,6 +93,13 @@
                 text-align: left;
                 .ie8 &,
                 .ie9 & { overflow-y: auto; }
+
+                .flipcard-item-back-title,
+                .flipcard-item-back-body {
+                    opacity: 0;
+                    .vendor-prefix-backface-opacity(0.2s; 0.1s);
+                    .ie9 & { opacity: 1; } // Required for IE9 bug (ignores opacity)
+                }
 
                 @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {  // tablet
                     padding: 17.5px 52.5px;
