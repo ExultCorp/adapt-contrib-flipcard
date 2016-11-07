@@ -9,7 +9,8 @@
       "required": true,
       "default": "This component is a flipcard comprised of flippable cards containing display image. Select the front face image to flip to the back face of these card to display associated text.",
       "inputType": "Text",
-      "validators": []
+      "validators": [],
+      "translatable": true
     }
   },
   "properties":{
@@ -26,7 +27,8 @@
       "default": "",
       "inputType": "Text",
       "validators": [],
-      "help": "This is the instruction text"
+      "help": "This is the instruction text",
+      "translatable": true
     },
     "_flipType": {
       "type": "string",
@@ -76,7 +78,8 @@
                 "default": "",
                 "inputType": "Text",
                 "validators": [],
-                "help": "The alternative text for this image"
+                "help": "The alternative text for this image",
+                "translatable": true
               },
               "src": {
                 "type": "string",
@@ -95,7 +98,8 @@
             "title": "Item Title",
             "default": "",
             "validators": [],
-            "help": "Enter a title text for back side of flipcard element"
+            "help": "Enter a title text for back side of flipcard element",
+            "translatable": true
           },
           "backBody": {
             "type": "string",
@@ -104,7 +108,8 @@
             "title": "Item Body",
             "default": "",
             "validators": [],
-            "help": "Enter body text for back side of flipcard element"
+            "help": "Enter body text for back side of flipcard element",
+            "translatable": true
           }
         }
       }
