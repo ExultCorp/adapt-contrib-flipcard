@@ -3,24 +3,29 @@
     {{> component this}}
     <div class="flipcard-widget component-widget clearfix">
         {{#each _items}}
-        <div class="flipcard-item component-item item-{{@index}}">
-            <div class="flipcard-item-face flipcard-item-front">
-                <img src="{{frontImage.src}}" class="flipcard-item-frontImage" aria-label="{{frontImage.alt}}" tabindex="0">
-            </div>
+            <div class="flipcard-item component-item item-{{@index}} show-front-{{showTitleFront}}">
+                <div class="flipcard-item-face flipcard-item-front">
+                    <img src="{{frontImage.src}}" class="flipcard-item-frontImage" aria-label="{{frontImage.alt}}" tabindex="0">
+                    {{#if showTitleFront}}
+                        <div class="flipcard-item-front-title">
+                          <div class="flipcard-item-front-title-inner">Hello world </div>
+                        </div>
+                    {{/if}}
+                </div>
 
-            <div class="flipcard-item-face flipcard-item-back">
-                {{#if backTitle}}
-                <div class="flipcard-item-back-title">
-                {{{backTitle}}}
+                <div class="flipcard-item-face flipcard-item-back">
+                    {{#if backTitle}}
+                        <div class="flipcard-item-back-title">
+                            {{{backTitle}}}
+                        </div>
+                    {{/if}}
+                    {{#if backBody}}
+                        <div class="flipcard-item-back-body">
+                            {{{backBody}}}
+                        </div>
+                    {{/if}}
                 </div>
-                {{/if}}
-                {{#if backBody}}
-                <div class="flipcard-item-back-body">
-                {{{backBody}}}
-                </div>
-                {{/if}}
             </div>
-        </div>
         {{/each}}
     </div>
 </div>
