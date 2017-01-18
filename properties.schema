@@ -87,6 +87,17 @@
             "validators": [],
             "help": "Enter a title text for back side of flipcard element"
           },
+          "_showTitleFront": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "inputType": {
+              "type": "Boolean",
+              "options": [false, true]
+            },
+            "title": "Show title on front",
+            "help": "Set to true to show the title on the flipcard's front."
+          },
           "backBody": {
             "type": "string",
             "required": false,
