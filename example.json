@@ -1,6 +1,6 @@
 {
-    "_id": "c-135",
-    "_parentId": "b-70",
+    "_id": "c-05",
+    "_parentId": "b-05",
     "_type": "component",
     "_component": "flipcard",
     "_classes": "",
@@ -11,57 +11,23 @@
     "instruction": "",
     "_flipType": "allFlip",
     "_flipTime": 400,
-    "_items": [
-        {
-            "frontImage": {
-                "src": "course/en/images/flip_1.png",
-                "alt": "flipcard item 1 graphic alt text here."
-            },
-            "backTitle": "Heading 1",
-            "backBody": "This is display text 1."
+    "_items": [{
+        "frontImage": {
+          "src": "course/en/images/single_width_small.jpg",
+          "alt": "flipcard item 1 graphic alt text here."
         },
-        {
-            "frontImage": {
-                "src": "course/en/images/flip_2.png",
-                "alt": "flipcard item 1 graphic alt text here."
-            },
-            "backTitle": "Heading 2",
-            "backBody": "<ul><li>This is list item 1.</li><li>This is list item 2.</li></ul>"
-        }
-    ]
-},
-
-{
-    "_id": "c-135",
-    "_parentId": "b-70",
-    "_type": "component",
-    "_component": "flipcard",
-    "_classes": "",
-    "_layout": "full",
-    "title": "Flip Card",
-    "displayTitle": "Flip Card",
-    "body": "This is optional body text. Click the image below to reveal the text.",
-    "instruction": "",
-    "_flipType": "singleFlip",
-    "_flipTime": 400,
-    "_items": [
-        {
-            "frontImage": {
-                "src": "course/en/images/flip_1.png",
-                "alt": "flipcard item 1 graphic alt text here."
-            },
-            "backTitle": "Heading 1",
-            "backBody": "This is display text 1."
+        "backTitle": "Heading 1",
+        "backBody": "This is display text 1.",
+        "_showTitleFront": true
+      },
+      {
+        "frontImage": {
+          "src": "course/en/images/single_width_small.jpg",
+          "alt": "flipcard item 1 graphic alt text here."
         },
-        {
-            "frontImage": {
-                "src": "course/en/images/flip_2.png",
-                "alt": "flipcard item 1 graphic alt text here."
-            },
-            "backTitle": "Heading 2",
-            "backBody": "<ul><li>This is list item 1.</li><li>This is list item 2.</li></ul>"
-        }
+        "backTitle": "Heading 2",
+        "backBody": "<ul><li>This is list item 1.</li><li>This is list item 2.</li></ul>",
+        "_showTitleFront": true
+      }
     ]
-}
-
-//_flipType accepts 'singleFlip' and 'allFlip'
+  }
