@@ -14,12 +14,12 @@
 
             <div class="flipcard-item-face flipcard-item-back" tabindex="0">
                 {{#if backTitle}}
-                <div class="flipcard-item-back-title h4">
+                <div class="flipcard-item-back-title h4 a11y-ignore" aria-hidden="true">
                 {{{backTitle}}}
                 </div>
                 {{/if}}
                 {{#if backBody}}
-                <div class="flipcard-item-back-body">
+                <div class="flipcard-item-back-body a11y-ignore" aria-hidden="true">
                 {{{backBody}}}
                 </div>
                 {{/if}}

@@ -81,7 +81,7 @@ define([
 
         // Click or Touch event handler for flip card.
         onClickFlipItem: function(event) {
-            if(event && event.target.tagName.toLowerCase() === 'a') {
+            if (event && event.target.tagName.toLowerCase() === 'a') {
                 return;
             } else {
                 event && event.preventDefault();
@@ -89,6 +89,10 @@ define([
 
             var $selectedElement = $(event.currentTarget);
             var flipType = this.model.get('_flipType');
+
+            var hasBeenFlipped = ($selectedElement.hasClass('flipcard-flip')) ? true : false;
+            this.toggleFlipcardAccessibility(hasBeenFlipped, $selectedElement);
+
             if (flipType === 'allFlip') {
                 this.performAllFlip($selectedElement);
             } else if (flipType === 'singleFlip') {
@@ -103,6 +107,7 @@ define([
                 var $frontflipcard = $selectedElement.find('.flipcard-item-front');
                 var $backflipcard = $selectedElement.find('.flipcard-item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
+
                 if ($frontflipcard.is(':visible')) {
                     $frontflipcard.fadeOut(flipTime, function() {
                         $backflipcard.fadeIn(flipTime);
@@ -118,6 +123,27 @@ define([
 
             var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
             this.setVisited(flipcardElementIndex);
+        },
+
+        toggleFlipcardAccessibility: function(hasBeenFlipped, $selectedElement) {
+            var $frontTitle = $selectedElement.find('.flipcard-item-front-title')
+            var $frontBody = $selectedElement.find('.flipcard-item-front-body')
+            var $backTitle = $selectedElement.find('.flipcard-item-back-title');
+            var $backBody = $selectedElement.find('.flipcard-item-back-body')
+
+            if (hasBeenFlipped) {
+                $backTitle.attr('aria-hidden', 'true').addClass('a11y-ignore');
+                $backBody.attr('aria-hidden', 'true').addClass('a11y-ignore');
+
+                $frontTitle.attr('aria-hidden', 'false').removeClass('a11y-ignore');
+                $frontBody.attr('aria-hidden', 'false').removeClass('a11y-ignore');
+            } else {
+                $backTitle.attr('aria-hidden', 'false').removeClass('a11y-ignore');
+                $backBody.attr('aria-hidden', 'false').removeClass('a11y-ignore');
+
+                $frontTitle.attr('aria-hidden', 'true').addClass('a11y-ignore');
+                $frontBody.attr('aria-hidden', 'true').addClass('a11y-ignore');
+            }
         },
 
         // This function will be responsible to perform Single flip on flipcard where
