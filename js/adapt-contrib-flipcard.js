@@ -30,7 +30,7 @@ define([
         // this is use to set ready status for current component on postRender.
         postRender: function() {
             _.each(this.$('.flipcard-item'), function(el) {
-                this.toggleFlipcardAccessibility($(el));
+                this.toggleCardSideVisibility($(el));
             }.bind(this));
 
             if (!Modernizr.csstransforms3d) {
@@ -132,6 +132,16 @@ define([
         },
 
         toggleFlipcardAccessibility: function($selectedElement) {
+            if (this.model.get('flipType') === 'allFlip') {
+                this.toggleCardSideVisibility($selectedElement);
+            } else {
+                _.each(this.$('.flipcard-item'), function(el) {
+                    this.toggleCardSideVisibility($(el));
+                }.bind(this));
+            }
+        },
+
+        toggleCardSideVisibility: function($selectedElement) {
             var hasBeenFlipped = ($selectedElement.hasClass('flipcard-flip')) ? true : false;
             var $front = $selectedElement.find('.flipcard-item-front');
             var $back = $selectedElement.find('.flipcard-item-back');
