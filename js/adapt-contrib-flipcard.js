@@ -22,13 +22,17 @@ define([
 
             // Adding classes for ie8
             if ($('html').hasClass('ie8')) {
-              $(".flipcard-item:nth-child(even)").addClass("even");
-              $(".flipcard-item:nth-child(odd)").addClass("odd");
+                $(".flipcard-item:nth-child(even)").addClass("even");
+                $(".flipcard-item:nth-child(odd)").addClass("odd");
             }
         },
 
         // this is use to set ready status for current component on postRender.
         postRender: function() {
+            _.each(this.$('.flipcard-item'), function(el) {
+                this.toggleCardSideVisibility($(el));
+            }.bind(this));
+
             if (!Modernizr.csstransforms3d) {
                 this.$('.flipcard-item-back').hide();
             }
@@ -75,13 +79,13 @@ define([
         },
 
         // This function called on triggering of device resize and device change event of Adapt.
-        reRender: function() {           
+        reRender: function() {
             this.setFlipComponentHeight();
-         },
+        },
 
         // Click or Touch event handler for flip card.
         onClickFlipItem: function(event) {
-            if(event && event.target.tagName.toLowerCase() === 'a') {
+            if (event && event.target.tagName.toLowerCase() === 'a') {
                 return;
             } else {
                 event && event.preventDefault();
@@ -89,11 +93,17 @@ define([
 
             var $selectedElement = $(event.currentTarget);
             var flipType = this.model.get('_flipType');
+
             if (flipType === 'allFlip') {
                 this.performAllFlip($selectedElement);
             } else if (flipType === 'singleFlip') {
                 this.performSingleFlip($selectedElement);
             }
+
+            _.defer(_.bind(function() {
+                this.toggleFlipcardAccessibility($selectedElement);
+                $selectedElement.a11y_focus();
+            }, this));
         },
 
         // This function will be responsible to perform All flip on flipcard
@@ -103,6 +113,7 @@ define([
                 var $frontflipcard = $selectedElement.find('.flipcard-item-front');
                 var $backflipcard = $selectedElement.find('.flipcard-item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
+
                 if ($frontflipcard.is(':visible')) {
                     $frontflipcard.fadeOut(flipTime, function() {
                         $backflipcard.fadeIn(flipTime);
@@ -118,6 +129,32 @@ define([
 
             var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
             this.setVisited(flipcardElementIndex);
+        },
+
+        toggleFlipcardAccessibility: function($selectedElement) {
+            if (this.model.get('flipType') === 'allFlip') {
+                this.toggleCardSideVisibility($selectedElement);
+            } else {
+                _.each(this.$('.flipcard-item'), function(el) {
+                    this.toggleCardSideVisibility($(el));
+                }.bind(this));
+            }
+        },
+
+        toggleCardSideVisibility: function($selectedElement) {
+            var hasBeenFlipped = ($selectedElement.hasClass('flipcard-flip')) ? true : false;
+            var $front = $selectedElement.find('.flipcard-item-front');
+            var $back = $selectedElement.find('.flipcard-item-back');
+
+            if (hasBeenFlipped) {
+                // Hide back, enable front
+                $front.attr('aria-hidden', 'true').addClass('a11y-ignore');
+                $back.attr('aria-hidden', 'false').removeClass('a11y-ignore');
+            } else {
+                // Hide front, enable back
+                $front.attr('aria-hidden', 'false').removeClass('a11y-ignore');
+                $back.attr('aria-hidden', 'true').addClass('a11y-ignore');
+            }
         },
 
         // This function will be responsible to perform Single flip on flipcard where
