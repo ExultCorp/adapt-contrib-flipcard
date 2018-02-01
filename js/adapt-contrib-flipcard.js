@@ -102,7 +102,13 @@ define([
 
             _.defer(_.bind(function() {
                 this.toggleFlipcardAccessibility($selectedElement);
-                $selectedElement.a11y_focus();
+
+                if (Adapt.config.has('_accessibility') && Adapt.config.get('_accessibility')._isActive) {
+                    _.delay(function() {
+                        // Allow animation to complete before focusing
+                        $selectedElement.a11y_focus();
+                    }, 500);
+                }
             }, this));
         },
 
