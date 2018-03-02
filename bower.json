@@ -14,7 +14,7 @@
     "displayName": "Flipcard",
     "component": "flipcard",
     "assetFields": [
-        "_items[].frontImageSrc"
+        "_items[].frontImage.src"
     ],
     "keywords": [
         "adapt-plugin",
