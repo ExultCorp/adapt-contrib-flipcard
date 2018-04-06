@@ -33,7 +33,7 @@ define([
                 this.toggleCardSideVisibility($(el));
             }.bind(this));
 
-            if (!Modernizr.csstransforms3d) {
+            if (!Modernizr.testProp('transformStyle', 'preserve-3d') || !Modernizr.csstransforms3d) {
                 this.$('.flipcard-item-back').hide();
             }
 
@@ -115,7 +115,7 @@ define([
         // This function will be responsible to perform All flip on flipcard
         // where all cards can flip and stay in the flipped state.
         performAllFlip: function($selectedElement) {
-            if (!Modernizr.csstransforms3d) {
+            if (!Modernizr.testProp('transformStyle', 'preserve-3d') || !Modernizr.csstransforms3d) {
                 var $frontflipcard = $selectedElement.find('.flipcard-item-front');
                 var $backflipcard = $selectedElement.find('.flipcard-item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
@@ -167,7 +167,7 @@ define([
         // only one card can flip and stay in the flipped state.
         performSingleFlip: function($selectedElement) {
             var flipcardContainer = $selectedElement.closest('.flipcard-widget');
-            if (!Modernizr.csstransforms3d) {
+            if (!Modernizr.testProp('transformStyle', 'preserve-3d') || !Modernizr.csstransforms3d) {
                 var frontflipcard = $selectedElement.find('.flipcard-item-front');
                 var backflipcard = $selectedElement.find('.flipcard-item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
