@@ -99,7 +99,8 @@
             .vendor-prefix (transform-style, preserve-3d);
             .vendor-prefix (backface-visibility, hidden);
 
-            // Turns off transition as ie11 doesn't support it
+            // Turns off transition as ie 11 doesn't support it
+            // still shows front and back of card
             &.flipcard-item-front,
             &.flipcard-item-back {
               [class*="version-11"] & {
