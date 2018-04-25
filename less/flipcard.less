@@ -99,6 +99,14 @@
             .vendor-prefix (transform-style, preserve-3d);
             .vendor-prefix (backface-visibility, hidden);
 
+            // Turns off transition as ie11 doesn't support it
+            &.flipcard-item-front,
+            &.flipcard-item-back {
+              [class*="version-11"] & {
+                transition: 0;
+              }
+            }
+
             &.flipcard-item-front {
                 .flipcard-item-frontImage {
                     width: 100%;
@@ -119,6 +127,16 @@
                     .vendor-prefix-backface-opacity(0.2s; 0.1s);
                     .ie9 & { opacity: 1; } // Required for IE9 bug (ignores opacity)
                 }
+
+                //   &:after {
+                //   background: @primary-color;
+                //   content: '';
+                //   height: 100%;
+                //   left: 0;
+                //   position: absolute;
+                //   top: 0;
+                //   width: 100%;
+                // }
 
                 @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {  // tablet
                     padding: 17.5px 52.5px;
