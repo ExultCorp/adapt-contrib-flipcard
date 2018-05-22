@@ -43,7 +43,7 @@ define([
 
             this.$('.flipcard-widget').imageready(_.bind(function() {
                 // Width css class for single or multiple images in flipcard.
-                if (this.$('.flipcard-inner').find('img').size() > 1) {
+                if (this.$('.flipcard-inner').find('img').length > 1) {
                     this.$('.flipcard-item').addClass('flipcard-multiple');
                 } else {
                     this.$('.flipcard-item').addClass('flipcard-single');
