@@ -1,6 +1,6 @@
 {
     "name": "adapt-contrib-flipcard",
-    "framework": ">=2.0.0",
+    "framework": ">=3.0.0",
     "version": "2.1.6",
     "homepage": "https://github.com/ExultCorp/adapt-contrib-flipcard",
     "issues": "https://github.com/ExultCorp/adapt-contrib-flipcard/issues",
