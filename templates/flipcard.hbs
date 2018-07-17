@@ -3,28 +3,28 @@
     {{> component this}}
     <div class="flipcard-widget component-widget clearfix">
         {{#each _items}}
-        <div class="flipcard-item component-item item-{{@index}} {{_flipDirection}}" tabindex="0">
-            <div class="flipcard-item-face flipcard-item-front">
-                {{#if frontImage.alt}}
-                <img src="{{frontImage.src}}" class="flipcard-item-frontImage" aria-label="{{frontImage.alt}}">
-                {{else}}
-                <img src="{{frontImage.src}}" class="flipcard-item-frontImage a11y-ignore" aria-hidden="true" >
-                {{/if}}
-            </div>
+            <div class="flipcard-item component-item item-{{@index}} {{_flipDirection}}" tabindex="0">
+                    <div class="flipcard-item-face flipcard-item-front">
+                        {{#if frontImage.alt}}
+                            <img src="{{frontImage.src}}" class="flipcard-item-frontImage" aria-label="{{frontImage.alt}}">
+                        {{else}}
+                            <img src="{{frontImage.src}}" class="flipcard-item-frontImage a11y-ignore" aria-hidden="true">
+                        {{/if}}
+                    </div>
 
-            <div class="flipcard-item-face flipcard-item-back">
-                {{#if backTitle}}
-                <div class="flipcard-item-back-title h4">
-                {{{backTitle}}}
+                    <div class="flipcard-item-face flipcard-item-back">
+                        {{#if backTitle}}
+                            <div class="flipcard-item-back-title h4">
+                                {{{backTitle}}}
+                            </div>
+                        {{/if}}
+                        {{#if backBody}}
+                            <div class="flipcard-item-back-body">
+                                {{{backBody}}}
+                            </div>
+                        {{/if}}
+                    </div>
                 </div>
-                {{/if}}
-                {{#if backBody}}
-                <div class="flipcard-item-back-body">
-                {{{backBody}}}
-                </div>
-                {{/if}}
-            </div>
-        </div>
         {{/each}}
     </div>
 </div>
