@@ -77,6 +77,12 @@
 
         .vendor-prefix (perspective, 600px);
 
+        // ADAPT-4343 Fixes a display bug in Edge
+        // Introduces other bugs in IOS so make it exclusive to Edge
+        .edge & {
+          transform-style: preserve-3d;
+        }
+
         html.size-medium &,
         html.size-small & {
             margin-bottom: 5px;
@@ -103,7 +109,7 @@
             // still shows front and back of card
             &.flipcard-item-front,
             &.flipcard-item-back {
-              [class*="version-11"] & {
+              [class*="version-11"].ie & {
                 transition: 0;
               }
             }

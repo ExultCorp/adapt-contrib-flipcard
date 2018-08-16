@@ -20,35 +20,38 @@ define([
             this.listenTo(Adapt, 'device:resize', this.reRender, this);
             this.checkIfResetOnRevisit();
 
-            // Adding classes for ie8
-            if ($('html').hasClass('ie8')) {
-                $(".flipcard-item:nth-child(even)").addClass("even");
-                $(".flipcard-item:nth-child(odd)").addClass("odd");
-            }
+            _.each(this.model.get('_items'), function(item) {
+                if (!item._flipDirection) {
+                    item._flipDirection = 'horizontal';
+                }
+            });
         },
 
         // this is use to set ready status for current component on postRender.
         postRender: function() {
-            _.each(this.$('.flipcard-item'), function(el) {
+            // Adding classes for ie8
+            if ($('html').hasClass('ie8')) {
+                this.$(".flipcard-item:nth-child(even)").addClass("even");
+                this.$(".flipcard-item:nth-child(odd)").addClass("odd");
+            }
+
+            var items = this.model.get('_items');
+            var $items = this.$('.flipcard-item');
+
+            _.each($items, function(el, i) {
                 this.toggleCardSideVisibility($(el));
+
             }.bind(this));
 
             if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
                 this.$('.flipcard-item-back').hide();
             }
 
-            if (_.isEmpty(this.model.get('_flipDirection'))) {
-                this.$('.flipcard-item').addClass('horizontal');
-            }
+            // Width css class for single or multiple images in flipcard.
+            var className = (items.length > 1) ? 'flipcard-multiple' : 'flipcard-single';
+            $items.addClass(className);
 
             this.$('.flipcard-widget').imageready(_.bind(function() {
-                // Width css class for single or multiple images in flipcard.
-                if (this.$('.flipcard-inner').find('img').length > 1) {
-                    this.$('.flipcard-item').addClass('flipcard-multiple');
-                } else {
-                    this.$('.flipcard-item').addClass('flipcard-single');
-                }
-
                 this.setFlipComponentHeight();
                 this.setReadyStatus();
             }, this));
@@ -148,7 +151,7 @@ define([
         },
 
         toggleCardSideVisibility: function($selectedElement) {
-            var hasBeenFlipped = ($selectedElement.hasClass('flipcard-flip')) ? true : false;
+            var hasBeenFlipped = $selectedElement.hasClass('flipcard-flip');
             var $front = $selectedElement.find('.flipcard-item-front');
             var $back = $selectedElement.find('.flipcard-item-back');
 
