@@ -154,16 +154,11 @@ define([
             var hasBeenFlipped = $selectedElement.hasClass('flipcard-flip');
             var $front = $selectedElement.find('.flipcard-item-front');
             var $back = $selectedElement.find('.flipcard-item-back');
+            var $textElements = $back.children();
 
-            if (hasBeenFlipped) {
-                // Hide back, enable front
-                $front.attr('aria-hidden', 'true').addClass('a11y-ignore');
-                $back.attr('aria-hidden', 'false').removeClass('a11y-ignore');
-            } else {
-                // Hide front, enable back
-                $front.attr('aria-hidden', 'false').removeClass('a11y-ignore');
-                $back.attr('aria-hidden', 'true').addClass('a11y-ignore');
-            }
+            $textElements.a11y_cntrl_enabled(hasBeenFlipped);
+            $front.attr('aria-hidden', hasBeenFlipped).toggleClass('a11y-ignore', hasBeenFlipped);
+            $back.attr('aria-hidden', !hasBeenFlipped).toggleClass('a11y-ignore', !hasBeenFlipped);
         },
 
         // This function will be responsible to perform Single flip on flipcard where
