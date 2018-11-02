@@ -178,17 +178,17 @@ define([
                 var $backflipcard = $selectedElement.find('.flipcard-item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
 
-                if ($backflipcard.is(':visible')) {
-                    $flipcardItem.addClass('flipcard-flip');
+                if ($backflipcard.is(':visible')) {     
                     $backflipcard.fadeOut(flipTime, function() {
                         $frontflipcard.fadeIn(flipTime);
+                        $flipcardItem.addClass('flipcard-flip');
                     });
                 } else {
                     var $visibleflipcardBack = $flipcardContainer.find('.flipcard-item-back:visible');
                     if ($visibleflipcardBack.length > 0) {
-                        $flipcardItem.removeClass('flipcard-flip');
                         $visibleflipcardBack.fadeOut(flipTime, function() {
                             $flipcardContainer.find('.flipcard-item-front:hidden').fadeIn(flipTime);
+                            $flipcardItem.removeClass('flipcard-flip');
                         });
                     }
                     $frontflipcard.fadeOut(flipTime, function() {
