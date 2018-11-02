@@ -181,10 +181,10 @@ define([
                         $backflipcard.fadeIn(flipTime);
                     });
                 } else {
-                    var visibleflipcardBack = $flipcardContainer.find('.flipcard-item-back:visible');
-                    if (visibleflipcardBack.length > 0) {
+                    var $visibleflipcardBack = $flipcardContainer.find('.flipcard-item-back:visible');
+                    if ($visibleflipcardBack.length > 0) {
                         $flipcardItem.removeClass('flipcard-flip');
-                        visibleflipcardBack.fadeOut(flipTime, function() {
+                        $visibleflipcardBack.fadeOut(flipTime, function() {
                             $flipcardContainer.find('.flipcard-item-front:hidden').fadeIn(flipTime);
                         });
                     }
