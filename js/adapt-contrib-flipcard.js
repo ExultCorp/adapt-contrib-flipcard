@@ -181,7 +181,7 @@ define([
                 if ($backflipcard.is(':visible')) {     
                     $backflipcard.fadeOut(flipTime, function() {
                         $frontflipcard.fadeIn(flipTime);
-                        $flipcardItem.addClass('flipcard-flip');
+                        $flipcardItem.removeClass('flipcard-flip');
                     });
                 } else {
                     var $visibleflipcardBack = $flipcardContainer.find('.flipcard-item-back:visible');
@@ -193,6 +193,7 @@ define([
                     }
                     $frontflipcard.fadeOut(flipTime, function() {
                         $backflipcard.fadeIn(flipTime);
+                        $flipcardItem.addClass('flipcard-flip');
                     });
                 }
             } else {
