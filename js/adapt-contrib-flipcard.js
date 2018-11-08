@@ -132,9 +132,11 @@ define([
                         $frontflipcard.fadeIn(flipTime);
                     });
                 }
-            } else {
-                $selectedElement.toggleClass('flipcard-flip');
             }
+
+            // Regardless of whether or not csstransforms3d is supported
+            // the flipcard-flip class should be added
+            $selectedElement.toggleClass('flipcard-flip');
 
             var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
             this.setVisited(flipcardElementIndex);
@@ -169,32 +171,36 @@ define([
         // This function will be responsible to perform Single flip on flipcard where
         // only one card can flip and stay in the flipped state.
         performSingleFlip: function($selectedElement) {
-            var flipcardContainer = $selectedElement.closest('.flipcard-widget');
+            var $flipcardContainer = $selectedElement.closest('.flipcard-widget');
             if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
-                var frontflipcard = $selectedElement.find('.flipcard-item-front');
-                var backflipcard = $selectedElement.find('.flipcard-item-back');
+                var $flipcardItem = $selectedElement.closest('.flipcard-item');
+                var $frontflipcard = $selectedElement.find('.flipcard-item-front');
+                var $backflipcard = $selectedElement.find('.flipcard-item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
 
-                if (backflipcard.is(':visible')) {
-                    backflipcard.fadeOut(flipTime, function() {
-                        frontflipcard.fadeIn(flipTime);
+                if ($backflipcard.is(':visible')) {     
+                    $backflipcard.fadeOut(flipTime, function() {
+                        $frontflipcard.fadeIn(flipTime);
+                        $flipcardItem.removeClass('flipcard-flip');
                     });
                 } else {
-                    var visibleflipcardBack = flipcardContainer.find('.flipcard-item-back:visible');
-                    if (visibleflipcardBack.length > 0) {
-                        visibleflipcardBack.fadeOut(flipTime, function() {
-                            flipcardContainer.find('.flipcard-item-front:hidden').fadeIn(flipTime);
+                    var $visibleflipcardBack = $flipcardContainer.find('.flipcard-item-back:visible');
+                    if ($visibleflipcardBack.length > 0) {
+                        $visibleflipcardBack.fadeOut(flipTime, function() {
+                            $flipcardContainer.find('.flipcard-item-front:hidden').fadeIn(flipTime);
+                            $flipcardItem.removeClass('flipcard-flip');
                         });
                     }
-                    frontflipcard.fadeOut(flipTime, function() {
-                        backflipcard.fadeIn(flipTime);
+                    $frontflipcard.fadeOut(flipTime, function() {
+                        $backflipcard.fadeIn(flipTime);
+                        $flipcardItem.addClass('flipcard-flip');
                     });
                 }
             } else {
                 if ($selectedElement.hasClass('flipcard-flip')) {
                     $selectedElement.removeClass('flipcard-flip');
                 } else {
-                    flipcardContainer.find('.flipcard-item').removeClass('flipcard-flip');
+                    $flipcardContainer.find('.flipcard-item').removeClass('flipcard-flip');
                     $selectedElement.addClass('flipcard-flip');
                 }
             }
