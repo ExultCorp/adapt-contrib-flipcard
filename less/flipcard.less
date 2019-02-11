@@ -1,4 +1,4 @@
-@flipcard-item-transition: all .4s ease-in-out;
+@flipcard-item-transition: all 0.4s ease-in-out;
 
 // horizontal flip
 @flipcard-item-rotate-Y-minus180deg: rotateY(-180deg);
@@ -12,229 +12,244 @@
 
 // Handles all properties
 .vendor-prefix (@property, @value) {
-	-webkit-@{property}: @value;
-	-moz-@{property}: @value;
-	-ms-@{property}: @value;
-	-o-@{property}: @value;
-	@{property}: @value;
+  -webkit-@{property}: @value;
+  -moz-@{property}: @value;
+  -ms-@{property}: @value;
+  -o-@{property}: @value;
+  @{property}: @value;
 }
 
 // Handles backface content opacity - !important required to override specificity
 .vendor-prefix-backface-opacity (@duration; @delay) {
-	-webkit-transition: opacity @duration @delay !important;
-	-moz-transition: opacity @duration @delay !important;
-	-ms-transition: opacity @duration @delay !important;
-	-o-transition: opacity @duration @delay !important;
-	transition: opacity @duration @delay !important;
+  -webkit-transition: opacity @duration @delay !important;
+  -moz-transition: opacity @duration @delay !important;
+  -ms-transition: opacity @duration @delay !important;
+  -o-transition: opacity @duration @delay !important;
+  transition: opacity @duration @delay !important;
 }
 
 // flipcard component styling
 .flipcard-component {
+  
+   // IE fix for jumping Footer nav
+   .flipcard-inner {
+     overflow: hidden;
+   }
+  
+  .flipcard-multiple {
+    width: 50%;
 
-    // IE fix for jumping Footer nav
-    .flipcard-inner {
+    .flipcard-item-face {
+      width: 100%;
+    }
+  }
+  
+   .flipcard-single {
+     width: 100%;
+
+      flipcard-item-face {
+         width: 100%;
+      }
+   }
+
+  .flipcard-item {
+    background-color: transparent !important;
+    border: 0;
+    color: @item-text-color;
+    float: left;
+    margin: 0;
+    margin-bottom: 0.5%;
+    min-height: 320px;
+    padding: 0;
+    position: relative;
+    .vendor-prefix (perspective, 600px);
+
+    @media all and (max-width: @device-width-medium) {
+      &:nth-child(odd),
+      &:nth-child(even),
+      &.odd,
+      &.even {
+        .flipcard-item-face {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      &:nth-child(odd),
+      &.odd {
+        .flipcard-item-face {
+          margin-right: 0;
+        }
+      }
+
+      &:nth-child(even),
+      &.even {
+        .flipcard-item-face {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .component-left&,
+    .component-right& {
+      min-height: 150px;
+    }
+
+    &.flipcard-flip {
+      .flipcard-item-back-title,
+      .flipcard-item-back-body {
+        opacity: 1 !important;
+        .vendor-prefix-backface-opacity(0.5s; 0.2s);
+      }
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    // ADAPT-4343 Fixes a display bug in Edge
+    // Introduces other bugs in IOS so make it exclusive to Edge
+    .edge & {
+      transform-style: preserve-3d;
+    }
+
+    html.size-medium &,
+    html.size-small & {
+      margin-bottom: 5px;
+      width: 100%;
+    }
+
+    .flipcard-item-face {
+      border: none;
+      cursor: pointer;
+      float: none;
+      height: 99%;
+      left: 0;
+      margin: 0%;
       overflow: hidden;
+      position: absolute;
+      top: 0;
+      z-index: 110;
+
+      .vendor-prefix (transition, @flipcard-item-transition);
+      .vendor-prefix (transform-style, preserve-3d);
+      .vendor-prefix (backface-visibility, hidden);
+
+      // Turns off transition as ie 11 doesn't support it
+      // still shows front and back of card
+      &.flipcard-item-front,
+      &.flipcard-item-back {
+        [class*='version-11'].ie & {
+          transition: 0;
+        }
+      }
+
+      &.flipcard-item-front {
+        .flipcard-item-frontImage {
+          height: auto;
+          width: 100%;
+        }
+      }
+
+      &.flipcard-item-back {
+        background: @primary-color;
+        padding: 12.5px 37.5px;
+        .vendor-prefix (box-sizing, border-box);
+
+        @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {
+          // tablet
+          padding: 17.5px 52.5px;
+        }
+
+        @media only screen and (min-width: (@device-width-medium + 1px)) {
+          // desktop
+          padding: 20px 60px;
+        }
+
+        .ie8 &,
+        .ie9 & {
+          overflow-y: auto;
+        }
+
+        .flipcard-item-back-title,
+        .flipcard-item-back-body {
+          opacity: 0;
+          .vendor-prefix-backface-opacity(0.2s; 0.1s);
+
+          .ie9 & {
+            opacity: 1;
+          } // Required for IE9 bug (ignores opacity)
+        }
+      }
     }
 
-    .flipcard-multiple {
-        width: 50%;
-
-        .flipcard-item-face {
-            width: 99%;
-        }
+    &:nth-child(odd),
+    &.odd {
+      .flipcard-item-face {
+        margin-right: 1%;
+      }
     }
 
-    .flipcard-single {
-        width: 100%;
-
-        .flipcard-item-face {
-            width: 100%;
-        }
+    &:nth-child(even),
+    &.even {
+      .flipcard-item-face {
+        margin-left: 1%;
+      }
     }
 
-    .flipcard-item {
-        color: @item-text-color;
-        float: left;
-        min-height: 320px;
-        position: relative;
-        border: 0;
-        background-color: transparent !important;
-        margin: 0;
-        padding: 0;
-        margin-bottom: .5%;
-        overflow: hidden;
-
-        .component-left&,
-        .component-right& {
-            min-height: 150px;
+    &.horizontal {
+      .flipcard-item-face {
+        &.flipcard-item-front {
+          .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
         }
 
-        &.flipcard-flip  {
-            .flipcard-item-back-title,
-            .flipcard-item-back-body {
-                opacity: 1 !important;
-                .vendor-prefix-backface-opacity(0.5s; 0.2s);
-            }
+        &.flipcard-item-back {
+          .vendor-prefix (transform, @flipcard-item-rotate-Y-minus180deg);
         }
-
-        &:hover {
-          background-color: transparent;
-        }
-
-        .vendor-prefix (perspective, 600px);
-
-        // ADAPT-4343 Fixes a display bug in Edge
-        // Introduces other bugs in IOS so make it exclusive to Edge
-        .edge & {
-          transform-style: preserve-3d;
-        }
-
-        html.size-medium &,
-        html.size-small & {
-            margin-bottom: 5px;
-            width: 100%;
-        }
-
-        .flipcard-item-face {
-            border: none;
-            cursor: pointer;
-            float: none;
-            left: 0;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            z-index: 110;
-            height: 99%;
-            margin: 0%;
-
-            .vendor-prefix (transition, @flipcard-item-transition);
-            .vendor-prefix (transform-style, preserve-3d);
-            .vendor-prefix (backface-visibility, hidden);
-
-            // Turns off transition as ie 11 doesn't support it
-            // still shows front and back of card
-            &.flipcard-item-front,
-            &.flipcard-item-back {
-              [class*="version-11"].ie & {
-                transition: 0;
-              }
-            }
-
-            &.flipcard-item-front {
-                .flipcard-item-frontImage {
-                    width: 100%;
-                    height: auto;
-                }
-            }
-
-            &.flipcard-item-back {
-                padding: 12.5px 37.5px;
-                background: @primary-color;
-                text-align: left;
-                .ie8 &,
-                .ie9 & { overflow-y: auto; }
-
-                .flipcard-item-back-title,
-                .flipcard-item-back-body {
-                    opacity: 0;
-                    .vendor-prefix-backface-opacity(0.2s; 0.1s);
-                    .ie9 & { opacity: 1; } // Required for IE9 bug (ignores opacity)
-                }
-
-                @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {  // tablet
-                    padding: 17.5px 52.5px;
-                }
-
-                @media only screen and (min-width: (@device-width-medium + 1px)) {  // desktop
-                  padding: 20px 60px;
-                }
-
-                .vendor-prefix (box-sizing, border-box);
-            }
-        }
-
-        &:nth-child(odd),
-        &.odd {
-          .flipcard-item-face { margin-right: 1%; }
-        }
-        &:nth-child(even),
-        &.even {
-          .flipcard-item-face { margin-left: 1%; }
-        }
-
-        @media all and (max-width: @device-width-medium) {
-          &:nth-child(odd),
-          &:nth-child(even),
-          &.odd,
-          &.even {
-            .flipcard-item-face {
-              width: 100%;
-              height: 100%;
-            }
-          }
-          &:nth-child(odd),
-          &.odd {
-            .flipcard-item-face { margin-right: 0; }
-          }
-          &:nth-child(even),
-          &.even {
-            .flipcard-item-face { margin-left: 0; }
-          }
-        }
-
-        &.horizontal {
-          .flipcard-item-face {
-            &.flipcard-item-front {
-              .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
-            }
-
-            &.flipcard-item-back {
-              .vendor-prefix (transform, @flipcard-item-rotate-Y-minus180deg);
-            }
-          }
-        }
-
-        &.vertical {
-          .flipcard-item-face {
-            &.flipcard-item-front {
-              .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
-            }
-
-            &.flipcard-item-back {
-              .vendor-prefix (transform, @flipcard-item-rotate-X-plus180deg);
-            }
-          }
-        }
-
-        &.flipcard-flip {
-            .flipcard-item-back {
-                overflow-x: hidden;
-                overflow-y: auto;
-            }
-        }
-
-        &.horizontal {
-          &.flipcard-flip {
-            .flipcard-item-front {
-              .vendor-prefix (transform, @flipcard-item-rotate-Y-plus180deg);
-            }
-
-            .flipcard-item-back {
-              .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
-            }
-          }
-        }
-
-        &.vertical {
-          &.flipcard-flip {
-            .flipcard-item-front {
-              .vendor-prefix (transform, @flipcard-item-rotate-X-minus180deg);
-            }
-
-            .flipcard-item-back {
-              .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
-            }
-          }
-        }
+      }
     }
+
+    &.vertical {
+      .flipcard-item-face {
+        &.flipcard-item-front {
+          .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
+        }
+
+        &.flipcard-item-back {
+          .vendor-prefix (transform, @flipcard-item-rotate-X-plus180deg);
+        }
+      }
+    }
+
+    &.flipcard-flip {
+      .flipcard-item-back {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    }
+
+    &.horizontal {
+      &.flipcard-flip {
+        .flipcard-item-front {
+          .vendor-prefix (transform, @flipcard-item-rotate-Y-plus180deg);
+        }
+
+        .flipcard-item-back {
+          .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
+        }
+      }
+    }
+
+    &.vertical {
+      &.flipcard-flip {
+        .flipcard-item-front {
+          .vendor-prefix (transform, @flipcard-item-rotate-X-minus180deg);
+        }
+
+        .flipcard-item-back {
+          .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
+        }
+      }
+    }
+  }
 }
