@@ -110,10 +110,6 @@ define([
         performAllFlip: function($selectedElement) {
             $selectedElement.toggleClass('flipcard-flip');
 
-            // Regardless of whether or not csstransforms3d is supported
-            // the flipcard-flip class should be added
-            $selectedElement.toggleClass('flipcard-flip');
-
             var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
             this.setVisited(flipcardElementIndex);
         },
@@ -142,17 +138,15 @@ define([
         // This function will be responsible to perform Single flip on flipcard where
         // only one card can flip and stay in the flipped state.
         performSingleFlip: function($selectedElement) {
-            var flipcardContainer = $selectedElement.closest('.flipcard-widget');
+            var $items = this.$('.flipcard-item');
+            var shouldFlip = !$selectedElement.hasClass('flipcard-flip');
 
-            if ($selectedElement.hasClass('flipcard-flip')) {
-                $selectedElement.removeClass('flipcard-flip');
-            } else {
-                flipcardContainer.find('.flipcard-item').removeClass('flipcard-flip');
-                $selectedElement.addClass('flipcard-flip');
-            }
+            $items.removeClass('flipcard-flip');
 
-            var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
-            this.setVisited(flipcardElementIndex);
+            shouldFlip && $selectedElement.addClass('flipcard-flip');
+
+            var index = $items.index($selectedElement);
+            this.setVisited(index);
         },
 
         // This function will set the visited status for particular flipcard item.
