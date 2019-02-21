@@ -130,11 +130,11 @@ The text entered for the body will be shown when the back side of flipcard appea
 
 ##Limitations
 
-This component works in IE9- but has slight change in behaviour, instead of flip effect it gets a fade-in/out effect.
+This component does not work in IE10 or less
 
 ##Browser spec
 
-This component has been tested to the standard Adapt browser specification.
+All modern browsers, IE11+
 
 ##Important
 
