@@ -1,14 +1,6 @@
-@flipcard-item-transition: all 0.4s ease-in-out;
-
-// horizontal flip
-@flipcard-item-rotate-Y-minus180deg: rotateY(-180deg);
-@flipcard-item-rotate-Y-plus180deg: rotateY(180deg);
-@flipcard-item-rotate-Y-0deg: rotateY(0deg);
-
-// vertical flip
-@flipcard-item-rotate-X-minus180deg: rotateX(-180deg);
-@flipcard-item-rotate-X-plus180deg: rotateX(180deg);
-@flipcard-item-rotate-X-0deg: rotateX(0deg);
+// ******* //
+/* Helpers */
+// ******* //
 
 // Handles all properties
 .vendor-prefix (@property, @value) {
@@ -19,8 +11,8 @@
   @{property}: @value;
 }
 
-// Handles backface content opacity - !important required to override specificity
-.vendor-prefix-backface-opacity (@duration; @delay) {
+// Handles opacity timings - !important required to override specificity
+.vendor-prefix-opacity (@duration; @delay) {
   -webkit-transition: opacity @duration @delay !important;
   -moz-transition: opacity @duration @delay !important;
   -ms-transition: opacity @duration @delay !important;
@@ -28,28 +20,20 @@
   transition: opacity @duration @delay !important;
 }
 
-// flipcard component styling
-.flipcard-component {
-  
-   // IE fix for jumping Footer nav
-   .flipcard-inner {
-     overflow: hidden;
-   }
-  
-  .flipcard-multiple {
-    width: 50%;
 
-    .flipcard-item-face {
-      width: 99%;
-    }
+// ****** //
+/* Styles */
+// ****** //
+
+// Scope the styles to flipcard-component's
+.flipcard-component {
+  .flipcard-widget {
+    .vendor-prefix(perspective, 600px);
   }
 
-  .flipcard-single {
-    width: 100%;
-
-    .flipcard-item-face {
-      width: 100%;
-    }
+  // Fix for jumping Footer nav
+  .flipcard-inner {
+    overflow: hidden;
   }
 
   .flipcard-item {
@@ -57,35 +41,36 @@
     border: 0;
     color: @item-text-color;
     float: left;
-    margin: 0;
-    margin-bottom: 0.5%;
-    min-height: 320px;
+    margin: 0 0 5px;
+    overflow: hidden;
     padding: 0;
     position: relative;
-    .vendor-prefix (perspective, 600px);
+    width: 100%;
+
+    &:hover {
+      background-color: transparent;
+    }
 
     @media all and (max-width: @device-width-medium) {
-      &:nth-child(odd),
-      &:nth-child(even),
-      &.odd,
-      &.even {
-        .flipcard-item-face {
-          height: 100%;
-          width: 100%;
-        }
+      .flipcard-item-face {
+        height: 100%;
+        width: 100%;
       }
+    }
 
-      &:nth-child(odd),
-      &.odd {
-        .flipcard-item-face {
-          margin-right: 0;
+    html.size-large & {
+      min-height: 320px;
+
+      // Spacing between side by side items
+      &.flipcard-multiple {
+        width: 49%;
+
+        &:nth-child(odd) {
+          margin-right: 1%;
         }
-      }
 
-      &:nth-child(even),
-      &.even {
-        .flipcard-item-face {
-          margin-left: 0;
+        &:nth-child(even) {
+          margin-left: 1%;
         }
       }
     }
@@ -95,161 +80,69 @@
       min-height: 150px;
     }
 
-    &.flipcard-flip {
-      .flipcard-item-back-title,
-      .flipcard-item-back-body {
-        opacity: 1 !important;
-        .vendor-prefix-backface-opacity(0.5s; 0.2s);
-      }
-    }
-
-    &:hover {
-      background-color: transparent;
-    }
-
-    // ADAPT-4343 Fixes a display bug in Edge
-    // Introduces other bugs in IOS so make it exclusive to Edge
-    .edge & {
-      transform-style: preserve-3d;
-    }
-
-    html.size-medium &,
-    html.size-small & {
-      margin-bottom: 5px;
-      width: 100%;
-    }
-
     .flipcard-item-face {
       border: none;
       cursor: pointer;
       float: none;
-      height: 99%;
-      left: 0;
-      margin: 0%;
-      overflow: hidden;
-      position: absolute;
-      top: 0;
       z-index: 110;
 
-      .vendor-prefix (transition, @flipcard-item-transition);
-      .vendor-prefix (transform-style, preserve-3d);
-      .vendor-prefix (backface-visibility, hidden);
-
-      // Turns off transition as ie 11 doesn't support it
-      // still shows front and back of card
-      &.flipcard-item-front,
-      &.flipcard-item-back {
-        [class*='version-11'].ie & {
-          transition: 0;
-        }
-      }
-
-      &.flipcard-item-front {
-        .flipcard-item-frontImage {
-          height: auto;
-          width: 100%;
-        }
-      }
-
-      &.flipcard-item-back {
-        background: @primary-color;
-        padding: 12.5px 37.5px;
-        .vendor-prefix (box-sizing, border-box);
-
-        @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {
-          // tablet
-          padding: 17.5px 52.5px;
-        }
-
-        @media only screen and (min-width: (@device-width-medium + 1px)) {
-          // desktop
-          padding: 20px 60px;
-        }
-
-        .ie8 &,
-        .ie9 & {
-          overflow-y: auto;
-        }
-
-        .flipcard-item-back-title,
-        .flipcard-item-back-body {
-          opacity: 0;
-          .vendor-prefix-backface-opacity(0.2s; 0.1s);
-
-          .ie9 & {
-            opacity: 1;
-          } // Required for IE9 bug (ignores opacity)
-        }
+      &.flipcard-item-front .flipcard-item-frontImage {
+        height: auto;
+        width: 100%;
       }
     }
+  }
 
-    &:nth-child(odd),
-    &.odd {
-      .flipcard-item-face {
-        margin-right: 1%;
-      }
+  // Front item
+  .flipcard-item-front {
+    opacity: 1;
+    .vendor-prefix-opacity(0.2s; 0.1s);
+  }
+
+  // Back item
+  .flipcard-item-back {
+    background: @primary-color;
+    height: 100%;
+    padding: 12.5px 37.5px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    .vendor-prefix(box-sizing, border-box);
+    .vendor-prefix-opacity(0.2s; 0.1s);
+
+    @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {
+      // Tablet
+      padding: 17.5px 52.5px;
     }
 
-    &:nth-child(even),
-    &.even {
-      .flipcard-item-face {
-        margin-left: 1%;
-      }
+    @media only screen and (min-width: (@device-width-medium + 1px)) {
+      // Desktop
+      padding: 20px 60px;
+    }
+  }
+
+  // Reverse the Y transform on horizontal
+  .horizontal .flipcard-item-back {
+    .vendor-prefix(transform, rotateY(180deg));
+  }
+
+  // Reverse the X transform on vertical
+  .vertical .flipcard-item-back {
+    .vendor-prefix(transform, rotateX(180deg));
+  }
+
+  // Hide/Show the items when flipped
+  .flipcard-flip {
+    // Hide the front item
+    .flipcard-item-front {
+      opacity: 0;
     }
 
-    &.horizontal {
-      .flipcard-item-face {
-        &.flipcard-item-front {
-          .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
-        }
-
-        &.flipcard-item-back {
-          .vendor-prefix (transform, @flipcard-item-rotate-Y-minus180deg);
-        }
-      }
-    }
-
-    &.vertical {
-      .flipcard-item-face {
-        &.flipcard-item-front {
-          .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
-        }
-
-        &.flipcard-item-back {
-          .vendor-prefix (transform, @flipcard-item-rotate-X-plus180deg);
-        }
-      }
-    }
-
-    &.flipcard-flip {
-      .flipcard-item-back {
-        overflow-x: hidden;
-        overflow-y: auto;
-      }
-    }
-
-    &.horizontal {
-      &.flipcard-flip {
-        .flipcard-item-front {
-          .vendor-prefix (transform, @flipcard-item-rotate-Y-plus180deg);
-        }
-
-        .flipcard-item-back {
-          .vendor-prefix (transform, @flipcard-item-rotate-Y-0deg);
-        }
-      }
-    }
-
-    &.vertical {
-      &.flipcard-flip {
-        .flipcard-item-front {
-          .vendor-prefix (transform, @flipcard-item-rotate-X-minus180deg);
-        }
-
-        .flipcard-item-back {
-          .vendor-prefix (transform, @flipcard-item-rotate-X-0deg);
-        }
-      }
+    // Show the back item
+    .flipcard-item-back {
+      opacity: 1;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
   }
 }

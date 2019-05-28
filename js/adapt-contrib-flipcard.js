@@ -23,18 +23,11 @@ define([
 
         // this is use to set ready status for current component on postRender.
         postRender: function() {
-            // Adding classes for ie8
-            if ($('html').hasClass('ie8')) {
-                this.$(".flipcard-item:nth-child(even)").addClass("even");
-                this.$(".flipcard-item:nth-child(odd)").addClass("odd");
-            }
-
             var items = this.model.get('_items');
             var $items = this.$('.flipcard-item');
 
             _.each($items, function(el, i) {
                 this.toggleCardSideVisibility($(el));
-
             }.bind(this));
 
             // Width css class for single or multiple images in flipcard.
@@ -105,11 +98,28 @@ define([
             }, this));
         },
 
+        // This function is responsible for rotating an individual item
+        flipItem: function($selectedElement) {
+            if ($selectedElement.hasClass('flipcard-flip')) {
+                if ($selectedElement.hasClass('vertical')) {
+                    $selectedElement.velocity({ rotateX: "180deg" });
+                } else {
+                    $selectedElement.velocity({ rotateY: "180deg" });
+                }
+            } else {
+                if ($selectedElement.hasClass('vertical')) {
+                    $selectedElement.velocity({ rotateX: 0 });
+                } else {
+                    $selectedElement.velocity({ rotateY: 0 });
+                }
+            }
+        },
+
         // This function will be responsible to perform All flip on flipcard
         // where all cards can flip and stay in the flipped state.
         performAllFlip: function($selectedElement) {
             $selectedElement.toggleClass('flipcard-flip');
-
+            this.flipItem($selectedElement);
             var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
             this.setVisited(flipcardElementIndex);
         },
@@ -141,9 +151,18 @@ define([
             var $items = this.$('.flipcard-item');
             var shouldFlip = !$selectedElement.hasClass('flipcard-flip');
 
-            $items.removeClass('flipcard-flip');
+            _.each($items, function(item) {
+                var $item = $(item);
+                if ($item.hasClass('flipcard-flip')) {
+                    $item.removeClass('flipcard-flip');
+                    this.flipItem($item);
+                }
+            }.bind(this));
 
-            shouldFlip && $selectedElement.addClass('flipcard-flip');
+            if (shouldFlip) {
+                $selectedElement.addClass('flipcard-flip');
+                this.flipItem($selectedElement);
+            }
 
             var index = $items.index($selectedElement);
             this.setVisited(index);
