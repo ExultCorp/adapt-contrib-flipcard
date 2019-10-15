@@ -65,17 +65,39 @@
                     width: 100%;
                     height: auto;
                 }
+
+                .flipcard-item-front-title {
+                    position: absolute;
+                    background-color: rgba(100,100,100,0.8);
+                    font-weight: 300;
+                    line-height: 120%;
+                    width: 100%;
+                    font-size: 130%;
+                    height: 20%;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    top: 35%;
+                    opacity: .8;
+
+                    .flipcard-item-front-title-inner {
+                        color: white;
+                        text-align: center;
+                        position: relative;
+                        top: 50%;
+                        -webkit-transform: translateY(-50%);
+                        -ms-transform: translateY(-50%);
+                        transform: translateY(-50%);
+                    }
+                }
             }
 
             &.flipcard-item-back {
                 padding: @item-padding;
-
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 -ms-box-sizing: border-box;
                 -o-box-sizing: border-box;
                 box-sizing: border-box;
-
                 -webkit-transform: @flipcard-item-rotate-Y-minus180deg;
                 -moz-transform: @flipcard-item-rotate-Y-minus180deg;
                 -ms-transform: @flipcard-item-rotate-Y-minus180deg;
