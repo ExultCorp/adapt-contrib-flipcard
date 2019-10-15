@@ -3,6 +3,7 @@
  * License - https://github.com/ExultCorp/adapt-contrib-flipcard/blob/master/LICENSE
  * Maintainers - Himanshu Rajotia <himanshu.rajotia@exultcorp.com>
  */
+
 define([
     'coreViews/componentView',
     'coreJS/adapt'
@@ -17,6 +18,12 @@ define([
         preRender: function() {
             this.listenTo(Adapt, 'device:resize', this.reRender, this);
             this.checkIfResetOnRevisit();
+
+            // Adding classes for ie8
+            if ($('html').hasClass('ie8')) {
+              $(".flipcard-item:nth-child(even)").addClass("even");
+              $(".flipcard-item:nth-child(odd)").addClass("odd");
+            }
         },
 
         // this is use to set ready status for current component on postRender.
@@ -29,6 +36,7 @@ define([
                 this.setReadyStatus();
                 this.reRender();
             }, this));
+
         },
 
         // Used to check if the flipcard should reset on revisit
