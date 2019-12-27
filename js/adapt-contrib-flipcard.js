@@ -11,7 +11,7 @@ define([
     var Flipcard = ComponentView.extend({
 
         events: {
-            'click .flipcard-item': 'onClickFlipItem'
+            'click .flipcard__item': 'onClickFlipItem'
         },
 
         preRender: function() {
@@ -22,10 +22,10 @@ define([
         // this is use to set ready status for current component on postRender.
         postRender: function() {
             if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
-                this.$('.flipcard-item-back').hide();
+                this.$('.flipcard__item-back').hide();
             }
 
-            this.$('.flipcard-widget').imageready(_.bind(function() {
+            this.$('.flipcard__widget').imageready(_.bind(function() {
                 this.setReadyStatus();
                 this.reRender();
             }, this));
@@ -47,15 +47,15 @@ define([
 
         // This function called on triggering of device resize and device change event of Adapt.
         reRender: function() {
-            var imageHeight = this.$('.flipcard-item-frontImage').eq(0).height();
+            var imageHeight = this.$('.flipcard__item-frontImage').eq(0).height();
             if (imageHeight) {
-                this.$('.flipcard-item').height(imageHeight);
+                this.$('.flipcard__item').height(imageHeight);
             }
         },
 
         // Click or Touch event handler for flip card.
         onClickFlipItem: function(event) {
-            if(event && event.target.tagName.toLowerCase() === 'a') {
+            if (event && event.target.tagName.toLowerCase() === 'a') {
                 return;
             } else {
                 event && event.preventDefault();
@@ -74,8 +74,8 @@ define([
         // where all cards can flip and stay in the flipped state.
         performAllFlip: function($selectedElement) {
             if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
-                var $frontflipcard = $selectedElement.find('.flipcard-item-front');
-                var $backflipcard = $selectedElement.find('.flipcard-item-back');
+                var $frontflipcard = $selectedElement.find('.flipcard__item-front');
+                var $backflipcard = $selectedElement.find('.flipcard__item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
                 if ($frontflipcard.is(':visible')) {
                     $frontflipcard.fadeOut(flipTime, function() {
@@ -90,17 +90,17 @@ define([
                 $selectedElement.toggleClass('flipcard-flip');
             }
 
-            var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
+            var flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
             this.setVisited(flipcardElementIndex);
         },
 
         // This function will be responsible to perform Single flip on flipcard where
         // only one card can flip and stay in the flipped state.
         performSingleFlip: function($selectedElement) {
-            var flipcardContainer = $selectedElement.closest('.flipcard-widget');
+            var flipcardContainer = $selectedElement.closest('.flipcard__widget');
             if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
-                var frontflipcard = $selectedElement.find('.flipcard-item-front');
-                var backflipcard = $selectedElement.find('.flipcard-item-back');
+                var frontflipcard = $selectedElement.find('.flipcard__item-front');
+                var backflipcard = $selectedElement.find('.flipcard__item-back');
                 var flipTime = this.model.get('_flipTime') || 'fast';
 
                 if (backflipcard.is(':visible')) {
@@ -108,10 +108,10 @@ define([
                         frontflipcard.fadeIn(flipTime);
                     });
                 } else {
-                    var visibleflipcardBack = flipcardContainer.find('.flipcard-item-back:visible');
+                    var visibleflipcardBack = flipcardContainer.find('.flipcard__item-back:visible');
                     if (visibleflipcardBack.length > 0) {
                         visibleflipcardBack.fadeOut(flipTime, function() {
-                            flipcardContainer.find('.flipcard-item-front:hidden').fadeIn(flipTime);
+                            flipcardContainer.find('.flipcard__item-front:hidden').fadeIn(flipTime);
                         });
                     }
                     frontflipcard.fadeOut(flipTime, function() {
@@ -122,12 +122,12 @@ define([
                 if ($selectedElement.hasClass('flipcard-flip')) {
                     $selectedElement.removeClass('flipcard-flip');
                 } else {
-                    flipcardContainer.find('.flipcard-item').removeClass('flipcard-flip');
+                    flipcardContainer.find('.flipcard__item').removeClass('flipcard-flip');
                     $selectedElement.addClass('flipcard-flip');
                 }
             }
 
-            var flipcardElementIndex = this.$('.flipcard-item').index($selectedElement);
+            var flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
             this.setVisited(flipcardElementIndex);
         },
 
