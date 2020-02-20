@@ -143,6 +143,12 @@ define([
             $textElements.a11y_cntrl_enabled(hasBeenFlipped);
             $front.attr('aria-hidden', hasBeenFlipped).toggleClass('a11y-ignore', hasBeenFlipped);
             $back.attr('aria-hidden', !hasBeenFlipped).toggleClass('a11y-ignore', !hasBeenFlipped);
+
+            if (hasBeenFlipped) {
+                $back.show();
+            } else {
+                $back.hide();
+            }
         },
 
         // This function will be responsible to perform Single flip on flipcard where
