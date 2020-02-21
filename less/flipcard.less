@@ -141,7 +141,7 @@
 
     // Show the back item
     .flipcard-item-back {
-      display: inline-block;
+      pointer-events: all;
       opacity: 1;
       overflow-x: hidden;
       overflow-y: auto;
@@ -150,7 +150,8 @@
 
   .flipcard-single {
     .flipcard-item-back[aria-hidden="true"] {
-      display: none;
+      pointer-events: none;
+      cursor: default;
     }
   }
 }
