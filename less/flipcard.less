@@ -141,17 +141,18 @@
 
     // Show the back item
     .flipcard-item-back {
-      pointer-events: all;
+      pointer-events: none;
       opacity: 1;
       overflow-x: hidden;
       overflow-y: auto;
     }
   }
 
-  .flipcard-single {
-    .flipcard-item-back[aria-hidden="true"] {
-      pointer-events: none;
-      cursor: default;
+  // Make links on Flipcards not available on the front side
+  .flipcard-item-face.flipcard-item-back {
+    pointer-events: none;
+    .flipcard-flip & {
+      pointer-events: all;
     }
   }
 }
