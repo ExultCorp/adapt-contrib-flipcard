@@ -28,6 +28,9 @@
 // Scope the styles to flipcard-component's
 .flipcard-component {
   .flipcard-widget {
+    display: flex;
+    justify-content: space-between;
+
     .vendor-prefix(perspective, 600px);
   }
 
@@ -40,7 +43,7 @@
     background-color: transparent !important;
     border: 0;
     color: @item-text-color;
-    float: left;
+    //float: left;
     margin: 0 0 5px;
     overflow: hidden;
     padding: 0;
@@ -63,15 +66,7 @@
 
       // Spacing between side by side items
       &.flipcard-multiple {
-        width: 49%;
-
-        &:nth-child(odd) {
-          margin-right: 1%;
-        }
-
-        &:nth-child(even) {
-          margin-left: 1%;
-        }
+        flex: 0 0 49%;
       }
     }
 

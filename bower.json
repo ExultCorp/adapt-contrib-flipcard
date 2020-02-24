@@ -1,7 +1,7 @@
 {
     "name": "adapt-contrib-flipcard",
     "framework": ">=3.0.0",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "homepage": "https://github.com/learningpool/adapt-contrib-flipcard",
     "issues": "https://github.com/learningpool/adapt-contrib-flipcard/issues",
     "repository": "git://github.com/learningpool/adapt-contrib-flipcard.git",
