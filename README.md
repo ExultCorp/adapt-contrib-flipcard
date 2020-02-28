@@ -138,4 +138,13 @@ This component has been tested to the standard Adapt browser specification.
 
 ##Important
 
-Please feel free to add issues and updates needed in the component.
+Please feel free to add issues and updates needed in the component.  
+
+----------------------------
+
+**Version number:**  3.0.0   
+**Framework versions:** 5+  
+**Author / maintainer:** Newgen Enterprise (formerly Exult)  
+**Accessibility support:** does not conform to WAI AA  
+**RTL support:** Yes  
+**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), Edge, IE11, Safari 12+13 for macOS/iOS/iPadOS, Opera  
