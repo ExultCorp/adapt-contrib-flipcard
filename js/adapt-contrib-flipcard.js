@@ -35,7 +35,7 @@ define([
             $items.addClass(className);
 
             this.$('.flipcard-widget').imageready(_.bind(function() {
-                this.setFlipComponentHeight();
+                this.setItemDimensions();
                 this.setReadyStatus();
             }, this));
 
@@ -56,17 +56,28 @@ define([
         },
 
         // This function sets the height of the flipcard component to the first image in the component.
-        setFlipComponentHeight: function() {
-            var imageHeight = this.$('.flipcard-item-frontImage').eq(0).height();
+        setItemDimensions: function() {
+            var $firstItemImage = this.$('.flipcard-item-frontImage').eq(0);
+
+            var $items = this.$('.flipcard-item');
+            var flexBasis = $items.length >  1 ? '49%' : '100%';
+
+            // Reset width so that dimensions can be recalculated
+            $items.css({ flexBasis: flexBasis });
+
+            var imageHeight = Math.round($firstItemImage.height());
+            var itemWidth = Math.floor($items.eq(0).outerWidth());
 
             if (imageHeight) {
-                this.$('.flipcard-item').height(imageHeight);
+                $items.height(imageHeight);
             }
+
+            $items.css({ flexBasis: itemWidth });
         },
 
         // This function called on triggering of device resize and device change event of Adapt.
         reRender: function() {
-            this.setFlipComponentHeight();
+            this.setItemDimensions();
         },
 
         // Click or Touch event handler for flip card.
