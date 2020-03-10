@@ -72,7 +72,13 @@ define([
                 $items.height(imageHeight);
             }
 
-            $items.css({ flexBasis: itemWidth });
+            // Responsive margin to make horizontal and vertical gutters equal
+            var gutterWidth = itemWidth * 0.04;
+
+            $items.css({
+                flexBasis: itemWidth,
+                marginBottom: gutterWidth
+            });
         },
 
         // This function called on triggering of device resize and device change event of Adapt.
