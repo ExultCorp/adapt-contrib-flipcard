@@ -1,136 +1,135 @@
-// Handles all properties
-.vendor-prefix (@property, @value) {
-  -webkit-@{property}: @value;
-  -moz-@{property}: @value;
-  -ms-@{property}: @value;
-  -o-@{property}: @value;
-  @{property}: @value;
+@flipcard-item-transition: all .4s ease-in-out;
+@flipcard-item-rotate-Y-minus180deg: rotateY(-180deg);
+@flipcard-item-rotate-Y-plus180deg: rotateY(180deg);
+@flipcard-item-rotate-Y-0deg: rotateY(0deg);
+
+@flipcard-item-rotate-X-minus180deg: rotateX(-180deg);
+@flipcard-item-rotate-X-plus180deg: rotateX(180deg);
+@flipcard-item-rotate-X-0deg: rotateY(0deg);
+
+// Make links on Flipcards not available on the front side
+.flipcard__item-face.flipcard__item-back[aria-hidden="true"] {
+  pointer-events: none;
 }
 
-// Handles opacity timings - !important required to override specificity
-.vendor-prefix-opacity (@duration; @delay) {
-  -webkit-transition: opacity @duration @delay !important;
-  -moz-transition: opacity @duration @delay !important;
-  -ms-transition: opacity @duration @delay !important;
-  -o-transition: opacity @duration @delay !important;
-  transition: opacity @duration @delay !important;
-}
+.flipcard__item {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  color: @font-color-inverted;
 
-// Scope the styles to flipcard__component's
-.flipcard__component {
-  .flipcard__widget {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  -webkit-perspective: 37.5rem;
+  -moz-perspective: 37.5rem;
+  -ms-perspective: 37.5rem;
+  -o-perspective: 37.5rem;
+  perspective: 37.5rem;
 
-    .vendor-prefix(perspective, 37.5rem);
-  }
-
-  // Fix for jumping Footer nav
-  .flipcard__inner {
-    overflow: hidden;
-  }
-
-  .flipcard__item {
-    border: 0;
-    overflow: hidden;
-    padding: 0;
-    position: relative;
+  html.size-medium &,
+  html.size-small & {
     width: 100%;
-
-    @media all and (max-width: @device-width-medium) {
-      // Override style attribute
-      flex-basis: 100% !important;
-
-      .flipcard__item-face {
-        height: 100%;
-        width: 100%;
-      }
-    }
-
-    html.size-large & {
-      min-height: 20rem;
-
-      // Spacing between side by side items
-      &.flipcard__multiple {
-        flex: 0 0 49%;
-      }
-    }
-
-    .component-left&,
-    .component-right& {
-      min-height: 9.375rem;
-    }
-
-    .flipcard__item-face {
-      border: none;
-      cursor: pointer;
-      float: none;
-      width: 100%;
-      z-index: 110;
-
-      &.flipcard__item-front .flipcard__item-frontImage {
-        height: auto;
-        width: 100%;
-      }
-    }
   }
 
-  // Front item
-  .flipcard__item-front {
-    opacity: 1;
-    .vendor-prefix-opacity(0.2s; 0.1s);
-  }
-
-  // Back item
-  .flipcard__item-back {
-    height: 100%;
-    padding: 0.78125rem 2.34375rem;
-    opacity: 0;
+  &-face {
     position: absolute;
+    z-index: 110;
     top: 0;
-    .vendor-prefix(box-sizing, border-box);
-    .vendor-prefix-opacity(0.2s; 0.1s);
+    left: 0;
+    float: none;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 1%;
+    cursor: pointer;
+    border: 0.0625rem solid @item-color;
+    background: @item-color;
 
-    @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {
-      // Tablet
-      padding: 1.09375rem 3.28125rem;
+    -webkit-transition: @flipcard-item-transition;
+    -moz-transition: @flipcard-item-transition;
+    -ms-transition: @flipcard-item-transition;
+    -o-transition: @flipcard-item-transition;
+    transition: @flipcard-item-transition;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  &-front {
+    -webkit-transform: @flipcard-item-rotate-Y-0deg;
+    -moz-transform: @flipcard-item-rotate-Y-0deg;
+    -ms-transform: @flipcard-item-rotate-Y-0deg;
+    -o-transform: @flipcard-item-rotate-Y-0deg;
+    transform: @flipcard-item-rotate-Y-0deg;
+
+    .flipcard__item-frontImage {
+      width: 100%;
+      height: auto;
     }
-
-    @media only screen and (min-width: (@device-width-medium + 0.0625rem)) {
-      // Desktop
-      padding: 1.25rem 3.75rem;
-    }
   }
 
-  // Reverse the Y transform on horizontal
-  .horizontal .flipcard__item-back {
-    .vendor-prefix(transform, rotateY(180deg));
+  &-back {
+    padding: @item-padding;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+
+    -webkit-transform: @flipcard-item-rotate-Y-minus180deg;
+    -moz-transform: @flipcard-item-rotate-Y-minus180deg;
+    -ms-transform: @flipcard-item-rotate-Y-minus180deg;
+    -o-transform: @flipcard-item-rotate-Y-minus180deg;
+    transform: @flipcard-item-rotate-Y-minus180deg;
   }
 
-  // Reverse the X transform on vertical
-  .vertical .flipcard__item-back {
-    .vendor-prefix(transform, rotateX(180deg));
-  }
-
-  // Hide/Show the items when flipped
-  .flipcard__flip {
-    // Hide the front item
+  &.flipcard__flip {
     .flipcard__item-front {
-      opacity: 0;
+      -webkit-transform: @flipcard-item-rotate-Y-plus180deg;
+      -moz-transform: @flipcard-item-rotate-Y-plus180deg;
+      -ms-transform: @flipcard-item-rotate-Y-plus180deg;
+      -o-transform: @flipcard-item-rotate-Y-plus180deg;
+      transform: @flipcard-item-rotate-Y-plus180deg;
     }
 
-    // Show the back item
     .flipcard__item-back {
-      pointer-events: all;
-      opacity: 1;
       overflow-x: hidden;
       overflow-y: auto;
+
+      -webkit-transform: @flipcard-item-rotate-Y-0deg;
+      -moz-transform: @flipcard-item-rotate-Y-0deg;
+      -ms-transform: @flipcard-item-rotate-Y-0deg;
+      -o-transform: @flipcard-item-rotate-Y-0deg;
+      transform: @flipcard-item-rotate-Y-0deg;
     }
   }
 
-  // Make links on Flipcards not available on the front side
-  .flipcard__item-face.flipcard__item-back[aria-hidden="true"] {
-    pointer-events: none;
+  .vertical {
+    .flipcard__item-front {
+      -webkit-transform: @flipcard-item-rotate-X-plus180deg;
+      -moz-transform: @flipcard-item-rotate-X-plus180deg;
+      -ms-transform: @flipcard-item-rotate-X-plus180deg;
+      -o-transform: @flipcard-item-rotate-X-plus180deg;
+      transform: @flipcard-item-rotate-X-plus180deg;
+    }
+
+    .flipcard__item-back {
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      -webkit-transform: @flipcard-item-rotate-X-0deg;
+      -moz-transform: @flipcard-item-rotate-X-0deg;
+      -ms-transform: @flipcard-item-rotate-X-0deg;
+      -o-transform: @flipcard-item-rotate-X-0deg;
+      transform: @flipcard-item-rotate-X-0deg;
+    }
   }
 }
