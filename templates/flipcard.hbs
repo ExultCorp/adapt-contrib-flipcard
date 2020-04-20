@@ -4,7 +4,11 @@
       {{#each _items}}
         <div class="flipcard__item component__item item-{{@index}} {{_flipDirection}}">
           <div class="flipcard__item-face flipcard__item-front">
-            <img src="{{frontImage.src}}" class="flipcard__item-frontImage" aria-label="{{frontImage.alt}}" tabindex="0">
+            {{#if frontImage.alt}}
+              <img src="{{frontImage.src}}" class="flipcard-item-frontImage" aria-label="{{frontImage.alt}}">
+              {{else}}
+              <img src="{{frontImage.src}}" class="flipcard-item-frontImage a11y-ignore" aria-hidden="true">
+              {{/if}}
           </div>
 
           <div class="flipcard__item-face flipcard__item-back">
