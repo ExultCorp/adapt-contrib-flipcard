@@ -5,7 +5,6 @@ define([
 ], function(ComponentView, Adapt){
 
   class Flipcard extends ComponentView {
-
     events() {
       return {
       'click .flipcard__item': 'onClickFlipItem'
@@ -154,7 +153,6 @@ define([
     }
 
     toggleCardSideVisibility($selectedElement) {
-      var flipcardContainer = $selectedElement.closest('.flipcard__widget');
       var hasBeenFlipped = $selectedElement.hasClass('flipcard__flip');
       var $front = $selectedElement.find('.flipcard__item-front');
       var $back = $selectedElement.find('.flipcard__item-back');
