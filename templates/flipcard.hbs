@@ -2,7 +2,7 @@
   {{> component this}}
     <div class="flipcard__widget component__widget">
       {{#each _items}}
-        <div class="flipcard__item component__item item-{{@index}} {{_flipDirection}}" tabindex="0">
+        <div class="flipcard__item component__item item-{{@index}} {{_flipDirection}}" tabindex="-1" aria-hidden="true">
           <div class="flipcard__item-face flipcard__item-front">
             {{#if frontImage.alt}}
               <img src="{{frontImage.src}}" class="flipcard__item-frontImage" aria-label="{{frontImage.alt}}">

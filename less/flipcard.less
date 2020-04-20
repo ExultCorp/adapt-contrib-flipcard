@@ -17,8 +17,8 @@
 }
 
 // Scope the styles to flipcard__component's
-.flipcard__component {
-  .flipcard__widget {
+.flipcard {
+  &__widget {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -27,11 +27,11 @@
   }
 
   // Fix for jumping Footer nav
-  .flipcard__inner {
+  &__inner {
     overflow: hidden;
   }
 
-  .flipcard__item {
+  &__item {
     border: 0;
     overflow: hidden;
     padding: 0;
@@ -42,7 +42,7 @@
       // Override style attribute
       flex-basis: 100% !important;
 
-      .flipcard__item-face {
+      &__item-face {
         height: 100%;
         width: 100%;
       }
@@ -62,7 +62,7 @@
       min-height: 9.375rem;
     }
 
-    .flipcard__item-face {
+    &__item-face {
       border: none;
       cursor: pointer;
       float: none;
@@ -77,13 +77,13 @@
   }
 
   // Front item
-  .flipcard__item-front {
+  &__item-front {
     opacity: 1;
     .vendor-prefix-opacity(0.2s; 0.1s);
   }
 
   // Back item
-  .flipcard__item-back {
+  &__item-back {
     height: 100%;
     padding: 0.78125rem 2.34375rem;
     opacity: 0;

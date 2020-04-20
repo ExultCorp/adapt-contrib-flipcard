@@ -110,7 +110,7 @@ define([
           if (Adapt.config.has('_accessibility') && Adapt.config.get('_accessibility')._isActive) {
             _.delay(function() {
               // Allow animation to complete before focusing
-              $selectedElement.a11y_focus();
+              //$selectedElement.a11y_focus();
             }, 500);
           }
       }, this));
@@ -159,8 +159,8 @@ define([
       var $textElements = $back.children();
 
       Adapt.a11y.toggleAccessibleEnabled($textElements, hasBeenFlipped); 
-      $front.attr('aria-hidden', hasBeenFlipped).toggleClass('a11y-ignore', hasBeenFlipped);
-      $back.attr('aria-hidden', !hasBeenFlipped).toggleClass('a11y-ignore', !hasBeenFlipped);
+      Adapt.a11y.toggleHidden($front, hasBeenFlipped);
+      Adapt.a11y.toggleHidden($back, !hasBeenFlipped);
     }
 
     // This function will be responsible to perform Single flip on flipcard where
