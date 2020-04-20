@@ -158,7 +158,7 @@ define([
       var $back = $selectedElement.find('.flipcard__item-back');
       var $textElements = $back.children();
 
-      $textElements.a11y_cntrl_enabled(hasBeenFlipped);
+      Adapt.a11y.toggleAccessibleEnabled($textElements, hasBeenFlipped); 
       $front.attr('aria-hidden', hasBeenFlipped).toggleClass('a11y-ignore', hasBeenFlipped);
       $back.attr('aria-hidden', !hasBeenFlipped).toggleClass('a11y-ignore', !hasBeenFlipped);
     }
