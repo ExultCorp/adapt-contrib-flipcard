@@ -5,9 +5,10 @@ define([
 ], function(ComponentView, Adapt){
 
   class Flipcard extends ComponentView {
+
     events() {
       return {
-      'click .flipcard__item': 'onClickFlipItem'
+        'click .flipcard__item': 'onClickFlipItem'
       }
     }
 
