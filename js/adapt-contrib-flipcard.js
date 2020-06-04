@@ -4,9 +4,10 @@
  * Maintainers - Himanshu Rajotia <himanshu.rajotia@exultcorp.com>
  */
 define([
-    'coreViews/componentView',
-    'coreJS/adapt'
-], function(ComponentView, Adapt) {
+    'core/js/models/componentModel',
+    'core/js/views/componentView',
+    'core/js/adapt'
+], function(ComponentModel, ComponentView, Adapt) {
 
     var Flipcard = ComponentView.extend({
 
@@ -152,8 +153,11 @@ define([
             }
         }
     });
-
-    Adapt.register('flipcard', Flipcard);
+    
+    Adapt.register('flipcard', {
+        model: ComponentModel.extend({}),
+        view: Flipcard
+    });
 
     return Flipcard;
 
