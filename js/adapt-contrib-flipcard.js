@@ -8,19 +8,9 @@ define([
 
     events() {
       return {
-        'click .flipcard__item': 'onClickFlipItem'
+        'click .flipcard__item': 'onClickFlipItem',
+        'keypress .flipcard__item': 'onClickFlipItem'
       }
-    }
-
-    preRender() {
-      this.listenTo(Adapt, 'device:resize', this.reRender, this);
-      this.checkIfResetOnRevisit();
-
-      _.each(this.model.get('_items'), function(item) {
-        if (!item._flipDirection) {
-          item._flipDirection = 'horizontal';
-        }
-      });
     }
 
     // this is used to set ready status for current component on postRender.
@@ -28,19 +18,18 @@ define([
       var items = this.model.get('_items');
       var $items = this.$('.flipcard__item');
 
-      _.each($items, function(el, i) {
-        this.toggleCardSideVisibility($(el));
-      }.bind(this));
+      if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
+        this.$('.flipcard__item-back').hide();
+      }
 
       // Width css class for single or multiple images in flipcard.
       var className = (items.length > 1) ? 'flipcard__multiple' : 'flipcard__single';
       $items.addClass(className);
 
       this.$('.flipcard__widget').imageready(_.bind(function() {
-        this.setItemDimensions();
+        this.reRender();
         this.setReadyStatus();
       }, this));
-
     }
 
     // Used to check if the flipcard should reset on revisit
@@ -57,10 +46,10 @@ define([
       });
     }
 
-    // This function sets the height of the flipcard component to the first image in the component.
-    setItemDimensions() {
+    // This function called on triggering of device resize and device change event of Adapt.
+    // It sets the height of the flipcard component to the first image in the component.
+    reRender() {
       var $firstItemImage = this.$('.flipcard__item-frontImage').eq(0);
-
       var $items = this.$('.flipcard__item');
       var flexBasis = $items.length >  1 ? '49%' : '100%';
 
@@ -83,11 +72,6 @@ define([
       });
     }
 
-    // This function called on triggering of device resize and device change event of Adapt.
-    reRender() {
-      this.setItemDimensions();
-    }
-
     // Click or Touch event handler for flip card.
     onClickFlipItem(event) {
       if (event && event.target.tagName.toLowerCase() === 'a') {
@@ -104,87 +88,86 @@ define([
       } else if (flipType === 'singleFlip') {
         this.performSingleFlip($selectedElement);
       }
-
-      _.defer(_.bind(function() {
-        this.toggleFlipcardAccessibility($selectedElement);
-
-          if (Adapt.config.has('_accessibility') && Adapt.config.get('_accessibility')._isActive) {
-            _.delay(function() {
-              // Allow animation to complete before focusing
-              $selectedElement.a11y_focus();
-            }, 500);
-          }
-      }, this));
-    }
-
-    // This function is responsible for rotating an individual item
-    flipItem($selectedElement) {
-      if ($selectedElement.hasClass('flipcard__flip')) {
-        if ($selectedElement.hasClass('vertical')) {
-          $selectedElement.velocity({ rotateX: "180deg" });
-        } else {
-          $selectedElement.velocity({ rotateY: "180deg" });
-        }
-      } else {
-        if ($selectedElement.hasClass('vertical')) {
-          $selectedElement.velocity({ rotateX: 0 });
-        } else {
-          $selectedElement.velocity({ rotateY: 0 });
-        }
-      }
     }
 
     // This function will be responsible to perform All flip on flipcard
     // where all cards can flip and stay in the flipped state.
     performAllFlip($selectedElement) {
-      $selectedElement.toggleClass('flipcard__flip');
-      this.flipItem($selectedElement);
+      if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
+        var $frontflipcard = $selectedElement.find('.flipcard__item-front');
+        var $backflipcard = $selectedElement.find('.flipcard__item-back');
+        var flipTime = this.model.get('_flipTime') || 'fast';
+        if ($frontflipcard.is(':visible')) {
+          $frontflipcard.fadeOut(flipTime, () => {
+            $backflipcard.fadeIn(flipTime);
+          });
+        } else if ($backflipcard.is(':visible')) {
+          $backflipcard.fadeOut(flipTime, () => {
+            $frontflipcard.fadeIn(flipTime);
+          });
+        }
+      } else {
+        $selectedElement.toggleClass('flipcard__flip');
+      }
+
       var flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
       this.setVisited(flipcardElementIndex);
     }
 
-    toggleFlipcardAccessibility($selectedElement) {
-      if (this.model.get('flipType') === 'allFlip') {
-        this.toggleCardSideVisibility($selectedElement);
-      } else {
-        _.each(this.$('.flipcard__item'), function(el) {
-          this.toggleCardSideVisibility($(el));
-        }.bind(this));
-      }
-    }
-
-    toggleCardSideVisibility($selectedElement) {
-      var hasBeenFlipped = $selectedElement.hasClass('flipcard__flip');
-      var $front = $selectedElement.find('.flipcard__item-front');
-      var $back = $selectedElement.find('.flipcard__item-back');
-      var $textElements = $back.children();
-
-      Adapt.a11y.toggleAccessibleEnabled($textElements, hasBeenFlipped); 
-      Adapt.a11y.toggleHidden($front, hasBeenFlipped);
-      Adapt.a11y.toggleHidden($back, !hasBeenFlipped);
-    }
+    // This function is responsible for rotating an individual item
+    // flipItem($selectedElement) {
+    //   if ($selectedElement.hasClass('flipcard__flip')) {
+    //     if ($selectedElement.hasClass('vertical')) {
+    //       $selectedElement.velocity({ rotateX: "180deg" });
+    //     } else {
+    //       $selectedElement.velocity({ rotateY: "180deg" });
+    //     }
+    //   } else {
+    //     if ($selectedElement.hasClass('vertical')) {
+    //       $selectedElement.velocity({ rotateX: 0 });
+    //     } else {
+    //       $selectedElement.velocity({ rotateY: 0 });
+    //     }
+    //   }
+    // }
 
     // This function will be responsible to perform Single flip on flipcard where
     // only one card can flip and stay in the flipped state.
     performSingleFlip($selectedElement) {
-      var $items = this.$('.flipcard__item');
-      var shouldFlip = !$selectedElement.hasClass('flipcard__flip');
+      var $items = $('.flipcard__item');
+      var flipcardFlip = 'flipcard__flip';
+      var flipcardContainer = $selectedElement.closest('.flipcard__widget');
+      if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
+        var frontflipcard = $selectedElement.find('.flipcard__item-front');
+        var backflipcard = $selectedElement.find('.flipcard__item-back');
+        var flipTime = this.model.get('_flipTime') || 'fast';
 
-      _.each($items, function(item) {
-        var $item = $(item);
-        if ($item.hasClass('flipcard__flip')) {
-          $item.removeClass('flipcard__flip');
-          this.flipItem($item);
+        if (backflipcard.is(':visible')) {
+          backflipcard.fadeOut(flipTime, function() {
+            frontflipcard.fadeIn(flipTime);
+          });
+        } else {
+          var visibleflipcardBack = flipcardContainer.find('.flipcard__item-back:visible');
+          if (visibleflipcardBack.length > 0) {
+            visibleflipcardBack.fadeOut(flipTime, function() {
+              flipcardContainer.find('.flipcard__item-front:hidden').fadeIn(flipTime);
+            });
+          }
+          frontflipcard.fadeOut(flipTime, function() {
+            backflipcard.fadeIn(flipTime);
+          });
         }
-      }.bind(this));
-
-      if (shouldFlip) {
-        $selectedElement.addClass('flipcard__flip');
-        this.flipItem($selectedElement);
+      } else {
+        if ($selectedElement.hasClass(flipcardFlip)) {
+          $selectedElement.removeClass(flipcardFlip);
+        } else {
+          flipcardContainer.find($items).removeClass(flipcardFlip);
+          $selectedElement.addClass(flipcardFlip);
+        }
       }
 
-      var index = $items.index($selectedElement);
-      this.setVisited(index);
+      var flipcardElementIndex = this.$items.index($selectedElement);
+      this.setVisited(flipcardElementIndex);
     }
 
     // This function will set the visited status for particular flipcard item.

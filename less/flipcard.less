@@ -1,3 +1,5 @@
+@flipcard-item-transition: all .4s ease-in-out;
+
 // Handles all properties
 .vendor-prefix (@property, @value) {
   -webkit-@{property}: @value;
@@ -5,15 +7,6 @@
   -ms-@{property}: @value;
   -o-@{property}: @value;
   @{property}: @value;
-}
-
-// Handles opacity timings - !important required to override specificity
-.vendor-prefix-opacity (@duration; @delay) {
-  -webkit-transition: opacity @duration @delay !important;
-  -moz-transition: opacity @duration @delay !important;
-  -ms-transition: opacity @duration @delay !important;
-  -o-transition: opacity @duration @delay !important;
-  transition: opacity @duration @delay !important;
 }
 
 // Scope the styles to flipcard__component's
@@ -33,7 +26,7 @@
 
   &__item {
     border: 0;
-    color: @item-color;
+    color: @item-color-inverted;
     overflow: hidden;
     padding: 0;
     position: relative;
@@ -64,11 +57,24 @@
     }
 
     &-face {
-      border: none;
-      cursor: pointer;
-      float: none;
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      -o-backface-visibility: hidden;
+      backface-visibility: hidden;
+
+      height: 100%;
+      position: absolute;
+
+      .transition(@flipcard-item-transition);
+
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      -ms-transform-style: preserve-3d;
+      -o-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+
       width: 100%;
-      z-index: 110;
 
       &.flipcard__item-front .flipcard__item-frontImage {
         height: auto;
@@ -79,39 +85,36 @@
     // Front item
     &-front {
       opacity: 1;
-      .vendor-prefix-opacity(0.2s; 0.1s);
     }
 
     // Back item
     &-back {
-      height: 100%;
-      padding: 0.78125rem 2.34375rem;
+      background: @item-color;
       opacity: 0;
-      position: absolute;
-      top: 0;
-      .vendor-prefix(box-sizing, border-box);
-      .vendor-prefix-opacity(0.2s; 0.1s);
-
-      @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {
-        // Tablet
-        padding: 1.09375rem 3.28125rem;
-      }
-
-      @media only screen and (min-width: (@device-width-medium + 0.0625rem)) {
-        // Desktop
-        padding: 1.25rem 3.75rem;
-      }
+      padding: @item-padding;
     }
   }
 
-  // Reverse the Y transform on horizontal
-  .horizontal .flipcard__item-back {
-    .vendor-prefix(transform, rotateY(180deg));
+  // Reverse the X transform on vertical
+  &.vertical {
+    .flipcard__item-front {
+      .transform(rotateX(0deg));
+    }
+
+    .flipcard__item-back {
+      .transform(rotateX(180deg));
+    }
   }
 
-  // Reverse the X transform on vertical
-  .vertical .flipcard__item-back {
-    .vendor-prefix(transform, rotateX(180deg));
+  //Reverse the Y transform on horizontal
+  &.horizontal {
+    .flipcard__item-front {
+      .transform(rotateY(0deg));
+    }
+
+    .flipcard__item-back {
+      .transform(rotateY(180deg));
+    }
   }
 
   // Hide/Show the items when flipped
@@ -127,6 +130,28 @@
       opacity: 1;
       overflow-x: hidden;
       overflow-y: auto;
+    }
+
+    // Reverse the X transform on vertical
+    &.vertical {
+      .flipcard__item-front {
+        .transform(rotateX(180deg));
+      }
+
+      .flipcard__item-back {
+        .transform(rotateX(0deg));
+      }
+    }
+
+    //Reverse the Y transform on horizontal
+    &.horizontal {
+      .flipcard__item-front {
+        .transform(rotateY(180deg));
+      }
+
+      .flipcard__item-back {
+        .transform(rotateY(0deg));
+      }
     }
   }
 
