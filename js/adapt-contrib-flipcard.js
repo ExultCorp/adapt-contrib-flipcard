@@ -114,23 +114,6 @@ define([
       this.setVisited(flipcardElementIndex);
     }
 
-    // This function is responsible for rotating an individual item
-    // flipItem($selectedElement) {
-    //   if ($selectedElement.hasClass('flipcard__flip')) {
-    //     if ($selectedElement.hasClass('vertical')) {
-    //       $selectedElement.velocity({ rotateX: "180deg" });
-    //     } else {
-    //       $selectedElement.velocity({ rotateY: "180deg" });
-    //     }
-    //   } else {
-    //     if ($selectedElement.hasClass('vertical')) {
-    //       $selectedElement.velocity({ rotateX: 0 });
-    //     } else {
-    //       $selectedElement.velocity({ rotateY: 0 });
-    //     }
-    //   }
-    // }
-
     // This function will be responsible to perform Single flip on flipcard where
     // only one card can flip and stay in the flipped state.
     performSingleFlip($selectedElement) {
