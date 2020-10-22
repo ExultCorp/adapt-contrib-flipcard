@@ -1,6 +1,4 @@
-// ******* //
-/* Helpers */
-// ******* //
+@flipcard-item-transition: all .4s ease-in-out;
 
 // Handles all properties
 .vendor-prefix (@property, @value) {
@@ -11,142 +9,154 @@
   @{property}: @value;
 }
 
-// Handles opacity timings - !important required to override specificity
-.vendor-prefix-opacity (@duration; @delay) {
-  -webkit-transition: opacity @duration @delay !important;
-  -moz-transition: opacity @duration @delay !important;
-  -ms-transition: opacity @duration @delay !important;
-  -o-transition: opacity @duration @delay !important;
-  transition: opacity @duration @delay !important;
-}
-
-
-// ****** //
-/* Styles */
-// ****** //
-
-// Scope the styles to flipcard-component's
-.flipcard-component {
-  .flipcard-widget {
+// Scope the styles to flipcard__component's
+.flipcard {
+  &__widget {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 
-    .vendor-prefix(perspective, 600px);
+    .vendor-prefix(perspective, 37.5rem);
   }
 
   // Fix for jumping Footer nav
-  .flipcard-inner {
+  &__inner {
     overflow: hidden;
   }
 
-  .flipcard-item {
-    background-color: transparent !important;
+  &__item {
     border: 0;
-    color: @item-text-color;
+    color: @item-color-inverted;
     overflow: hidden;
     padding: 0;
     position: relative;
     width: 100%;
 
-    &:hover {
-      background-color: transparent;
-    }
-
     @media all and (max-width: @device-width-medium) {
       // Override style attribute
       flex-basis: 100% !important;
 
-      .flipcard-item-face {
+      &__item-face {
         height: 100%;
         width: 100%;
       }
     }
 
     html.size-large & {
-      min-height: 320px;
+      min-height: 20rem;
 
       // Spacing between side by side items
-      &.flipcard-multiple {
+      &.flipcard__multiple {
         flex: 0 0 49%;
       }
     }
 
-    .component-left&,
-    .component-right& {
-      min-height: 150px;
+    .component.is-left&,
+    .component.is-right& {
+      min-height: 9.375rem;
     }
 
-    .flipcard-item-face {
-      border: none;
-      cursor: pointer;
-      float: none;
-      width: 100%;
-      z-index: 110;
+    &-face {
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      -o-backface-visibility: hidden;
+      backface-visibility: hidden;
 
-      &.flipcard-item-front .flipcard-item-frontImage {
+      height: 100%;
+      position: absolute;
+
+      .transition(@flipcard-item-transition);
+
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      -ms-transform-style: preserve-3d;
+      -o-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+
+      width: 100%;
+
+      &.flipcard__item-front .flipcard__item-frontImage {
         height: auto;
         width: 100%;
       }
     }
-  }
 
-  // Front item
-  .flipcard-item-front {
-    opacity: 1;
-    .vendor-prefix-opacity(0.2s; 0.1s);
-  }
-
-  // Back item
-  .flipcard-item-back {
-    background: @primary-color;
-    height: 100%;
-    padding: 12.5px 37.5px;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    .vendor-prefix(box-sizing, border-box);
-    .vendor-prefix-opacity(0.2s; 0.1s);
-
-    @media only screen and (min-width: @device-width-small) and (max-width: @device-width-medium) {
-      // Tablet
-      padding: 17.5px 52.5px;
+    // Front item
+    &-front {
+      opacity: 1;
     }
 
-    @media only screen and (min-width: (@device-width-medium + 1px)) {
-      // Desktop
-      padding: 20px 60px;
+    // Back item
+    &-back {
+      background: @item-color;
+      opacity: 0;
+      padding: @item-padding;
     }
-  }
-
-  // Reverse the Y transform on horizontal
-  .horizontal .flipcard-item-back {
-    .vendor-prefix(transform, rotateY(180deg));
   }
 
   // Reverse the X transform on vertical
-  .vertical .flipcard-item-back {
-    .vendor-prefix(transform, rotateX(180deg));
+  &.vertical {
+    .flipcard__item-front {
+      .transform(rotateX(0deg));
+    }
+
+    .flipcard__item-back {
+      .transform(rotateX(180deg));
+    }
+  }
+
+  //Reverse the Y transform on horizontal
+  &.horizontal {
+    .flipcard__item-front {
+      .transform(rotateY(0deg));
+    }
+
+    .flipcard__item-back {
+      .transform(rotateY(180deg));
+    }
   }
 
   // Hide/Show the items when flipped
-  .flipcard-flip {
+  .flipcard__flip {
     // Hide the front item
-    .flipcard-item-front {
+    .flipcard__item-front {
       opacity: 0;
     }
 
     // Show the back item
-    .flipcard-item-back {
+    .flipcard__item-back {
       pointer-events: all;
       opacity: 1;
       overflow-x: hidden;
       overflow-y: auto;
     }
+
+    // Reverse the X transform on vertical
+    &.vertical {
+      .flipcard__item-front {
+        .transform(rotateX(180deg));
+      }
+
+      .flipcard__item-back {
+        .transform(rotateX(0deg));
+      }
+    }
+
+    //Reverse the Y transform on horizontal
+    &.horizontal {
+      .flipcard__item-front {
+        .transform(rotateY(180deg));
+      }
+
+      .flipcard__item-back {
+        .transform(rotateY(0deg));
+      }
+    }
   }
 
   // Make links on Flipcards not available on the front side
-  .flipcard-item-face.flipcard-item-back[aria-hidden="true"] {
+  .flipcard__item-face.flipcard__item-back[aria-hidden="true"] {
     pointer-events: none;
   }
 }
