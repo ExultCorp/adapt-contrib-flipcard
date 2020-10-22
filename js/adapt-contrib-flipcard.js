@@ -149,7 +149,7 @@ define([
         }
       }
 
-      var flipcardElementIndex = this.$items.index($selectedElement);
+      var flipcardElementIndex = $items.index($selectedElement);
       this.setVisited(flipcardElementIndex);
     }
 
