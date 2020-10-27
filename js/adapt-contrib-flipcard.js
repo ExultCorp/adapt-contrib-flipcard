@@ -15,15 +15,15 @@ define([
 
     // this is used to set ready status for current component on postRender.
     postRender() {
-      var items = this.model.get('_items');
-      var $items = this.$('.flipcard__item');
+      const items = this.model.get('_items');
+      const $items = this.$('.flipcard__item');
 
       if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
         this.$('.flipcard__item-back').hide();
       }
 
       // Width css class for single or multiple images in flipcard.
-      var className = (items.length > 1) ? 'flipcard__multiple' : 'flipcard__single';
+      const className = (items.length > 1) ? 'flipcard__multiple' : 'flipcard__single';
       $items.addClass(className);
 
       this.$('.flipcard__widget').imageready(_.bind(function() {
@@ -34,7 +34,7 @@ define([
 
     // Used to check if the flipcard should reset on revisit
     checkIfResetOnRevisit() {
-      var isResetOnRevisit = this.model.get('_isResetOnRevisit');
+      const isResetOnRevisit = this.model.get('_isResetOnRevisit');
 
       // If reset is enabled set defaults
       if (isResetOnRevisit) {
@@ -42,29 +42,29 @@ define([
       }
 
       _.each(this.model.get('_items'), function(item) {
-      item._isVisited = false;
+        item._isVisited = false;
       });
     }
 
     // This function called on triggering of device resize and device change event of Adapt.
     // It sets the height of the flipcard component to the first image in the component.
     reRender() {
-      var $firstItemImage = this.$('.flipcard__item-frontImage').eq(0);
-      var $items = this.$('.flipcard__item');
-      var flexBasis = $items.length >  1 ? '49%' : '100%';
+      const $firstItemImage = this.$('.flipcard__item-frontImage').eq(0);
+      const $items = this.$('.flipcard__item');
+      const flexBasis = $items.length >  1 ? '49%' : '100%';
 
       // Reset width so that dimensions can be recalculated
       $items.css({ flexBasis: flexBasis });
 
-      var imageHeight = Math.round($firstItemImage.height());
-      var itemWidth = Math.floor($items.eq(0).outerWidth());
+      const imageHeight = Math.round($firstItemImage.height());
+      const itemWidth = Math.floor($items.eq(0).outerWidth());
 
       if (imageHeight) {
         $items.height(imageHeight);
       }
 
       // Responsive margin to make horizontal and vertical gutters equal
-      var gutterWidth = itemWidth * 0.04;
+      const gutterWidth = itemWidth * 0.04;
 
       $items.css({
         flexBasis: itemWidth,
@@ -80,8 +80,8 @@ define([
         event && event.preventDefault();
       }
 
-      var $selectedElement = $(event.currentTarget);
-      var flipType = this.model.get('_flipType');
+      const $selectedElement = $(event.currentTarget);
+      const flipType = this.model.get('_flipType');
 
       if (flipType === 'allFlip') {
         this.performAllFlip($selectedElement);
@@ -94,9 +94,9 @@ define([
     // where all cards can flip and stay in the flipped state.
     performAllFlip($selectedElement) {
       if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
-        var $frontflipcard = $selectedElement.find('.flipcard__item-front');
-        var $backflipcard = $selectedElement.find('.flipcard__item-back');
-        var flipTime = this.model.get('_flipTime') || 'fast';
+        const $frontflipcard = $selectedElement.find('.flipcard__item-front');
+        const $backflipcard = $selectedElement.find('.flipcard__item-back');
+        const flipTime = this.model.get('_flipTime') || 'fast';
         if ($frontflipcard.is(':visible')) {
           $frontflipcard.fadeOut(flipTime, () => {
             $backflipcard.fadeIn(flipTime);
@@ -110,27 +110,27 @@ define([
         $selectedElement.toggleClass('flipcard__flip');
       }
 
-      var flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
+      const flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
       this.setVisited(flipcardElementIndex);
     }
 
     // This function will be responsible to perform Single flip on flipcard where
     // only one card can flip and stay in the flipped state.
     performSingleFlip($selectedElement) {
-      var $items = $('.flipcard__item');
-      var flipcardFlip = 'flipcard__flip';
-      var flipcardContainer = $selectedElement.closest('.flipcard__widget');
+      const $items = $('.flipcard__item');
+      const flipcardFlip = 'flipcard__flip';
+      const flipcardContainer = $selectedElement.closest('.flipcard__widget');
       if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
-        var frontflipcard = $selectedElement.find('.flipcard__item-front');
-        var backflipcard = $selectedElement.find('.flipcard__item-back');
-        var flipTime = this.model.get('_flipTime') || 'fast';
+        const frontflipcard = $selectedElement.find('.flipcard__item-front');
+        const backflipcard = $selectedElement.find('.flipcard__item-back');
+        const flipTime = this.model.get('_flipTime') || 'fast';
 
         if (backflipcard.is(':visible')) {
           backflipcard.fadeOut(flipTime, function() {
             frontflipcard.fadeIn(flipTime);
           });
         } else {
-          var visibleflipcardBack = flipcardContainer.find('.flipcard__item-back:visible');
+          const visibleflipcardBack = flipcardContainer.find('.flipcard__item-back:visible');
           if (visibleflipcardBack.length > 0) {
             visibleflipcardBack.fadeOut(flipTime, function() {
               flipcardContainer.find('.flipcard__item-front:hidden').fadeIn(flipTime);
@@ -149,13 +149,13 @@ define([
         }
       }
 
-      var flipcardElementIndex = this.$items.index($selectedElement);
+      const flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
       this.setVisited(flipcardElementIndex);
     }
 
     // This function will set the visited status for particular flipcard item.
     setVisited(index) {
-      var item = this.model.get('_items')[index];
+      const item = this.model.get('_items')[index];
       item._isVisited = true;
       this.checkCompletionStatus();
     }
