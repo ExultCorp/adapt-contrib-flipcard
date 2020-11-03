@@ -119,13 +119,15 @@
 
   // Hide/Show the items when flipped
   &__item {
-
+    cursor: pointer;
+    
     &-back-body,
     &-back-title {
       display: none;
     }
 
     &.flipcard__flip {
+      cursor: auto;
 
       .flipcard__item {
         &-back-body,
