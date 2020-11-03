@@ -118,39 +118,55 @@
   }
 
   // Hide/Show the items when flipped
-  .flipcard__flip {
-    // Hide the front item
-    .flipcard__item-front {
-      opacity: 0;
+  &__item {
+
+    &-back-body,
+    &-back-title {
+      display: none;
     }
 
-    // Show the back item
-    .flipcard__item-back {
-      pointer-events: all;
-      opacity: 1;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
+    &.flipcard__flip {
 
-    // Reverse the X transform on vertical
-    &.vertical {
-      .flipcard__item-front {
-        .transform(rotateX(180deg));
+      .flipcard__item {
+        &-back-body,
+        &-back-title {
+          display: block;
+        }
+
+        // Hide the front item
+        &-front {
+          opacity: 0;
+        }
+    
+        // Show the back item
+        &-back {
+          pointer-events: all;
+          opacity: 1;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
       }
-
-      .flipcard__item-back {
-        .transform(rotateX(0deg));
+  
+      // Reverse the X transform on vertical
+      &.vertical {
+        .flipcard__item-front {
+          .transform(rotateX(180deg));
+        }
+  
+        .flipcard__item-back {
+          .transform(rotateX(0deg));
+        }
       }
-    }
-
-    //Reverse the Y transform on horizontal
-    &.horizontal {
-      .flipcard__item-front {
-        .transform(rotateY(180deg));
-      }
-
-      .flipcard__item-back {
-        .transform(rotateY(0deg));
+  
+      //Reverse the Y transform on horizontal
+      &.horizontal {
+        .flipcard__item-front {
+          .transform(rotateY(180deg));
+        }
+  
+        .flipcard__item-back {
+          .transform(rotateY(0deg));
+        }
       }
     }
   }
