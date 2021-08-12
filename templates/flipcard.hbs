@@ -1,20 +1,20 @@
-<div class="flipcard__inner component__inner" role="region" aria-label="{{_globals._components._flipcard.ariaRegion}}">
+<div class="flipcard__inner component__inner" role="region">
   {{> component this}}
     <div class="flipcard__widget component__widget clearfix">
       {{#each _items}}
-        <div class="flipcard__item component__item item-{{@index}} {{_flipDirection}}" tabindex="0">
-          <div class="flipcard__item-face flipcard__item-front">
-            <img src="{{frontImage.src}}" class="flipcard__item-frontImage" aria-label="{{frontImage.alt}}">
+        <div class="flipcard__item component__item item-{{@index}} {{_flipDirection}}">
+          <div class="flipcard__item-face flipcard__item-front" aria-label="{{frontImage.alt}}" role="button">
+            <img src="{{frontImage.src}}" class="flipcard__item-frontImage">
           </div>
-          <div class="flipcard__item-face flipcard__item-back">
+          <div class="flipcard__item-face flipcard__item-back" role="button">
             {{#if backTitle}}
-              <div class="flipcard__item-back-title" aria-live="polite">
+              <div class="flipcard__item-back-title" role="heading">
                 {{{backTitle}}}
               </div>
             {{/if}}
             {{#if backBody}}
-              <div class="flipcard__item-back-body" aria-live="polite">
-                {{{backBody}}}
+              <div class="flipcard__item-back-body">
+                {{{compile backBody}}}
               </div>
             {{/if}}
           </div>

@@ -8,7 +8,7 @@ define([
 
     events() {
       return {
-        'click .flipcard__item': 'onClickFlipItem',
+        'click .flipcard__item-face': 'onClickFlipItem',
         'keypress .flipcard__item': 'onClickFlipItem'
       }
     }
@@ -26,10 +26,10 @@ define([
       const className = (items.length > 1) ? 'flipcard__multiple' : 'flipcard__single';
       $items.addClass(className);
 
-      this.$('.flipcard__widget').imageready(_.bind(function() {
+      this.$('.flipcard__widget').imageready(() => {
         this.reRender();
         this.setReadyStatus();
-      }, this));
+      });
     }
 
     // Used to check if the flipcard should reset on revisit
@@ -41,7 +41,7 @@ define([
         this.model.reset(isResetOnRevisit);
       }
 
-      _.each(this.model.get('_items'), function(item) {
+      this.model.get('_items').forEach(item => {
         item._isVisited = false;
       });
     }
@@ -76,11 +76,10 @@ define([
     onClickFlipItem(event) {
       if (event && event.target.tagName.toLowerCase() === 'a') {
         return;
-      } else {
-        event && event.preventDefault();
       }
+      event && event.preventDefault();
 
-      const $selectedElement = $(event.currentTarget);
+      const $selectedElement = $(event.currentTarget).parents('.flipcard__item');
       const flipType = this.model.get('_flipType');
 
       if (flipType === 'allFlip') {
@@ -88,36 +87,38 @@ define([
       } else if (flipType === 'singleFlip') {
         this.performSingleFlip($selectedElement);
       }
+      this.focusOnFlipcard($selectedElement);
     }
 
     // This function will be responsible to perform All flip on flipcard
     // where all cards can flip and stay in the flipped state.
     performAllFlip($selectedElement) {
-      if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
-        const $frontflipcard = $selectedElement.find('.flipcard__item-front');
-        const $backflipcard = $selectedElement.find('.flipcard__item-back');
-        const flipTime = this.model.get('_flipTime') || 'fast';
-        if ($frontflipcard.is(':visible')) {
-          $frontflipcard.fadeOut(flipTime, () => {
-            $backflipcard.fadeIn(flipTime);
-          });
-        } else if ($backflipcard.is(':visible')) {
-          $backflipcard.fadeOut(flipTime, () => {
-            $frontflipcard.fadeIn(flipTime);
-          });
-        }
-      } else {
-        $selectedElement.toggleClass('flipcard__flip');
-      }
-
       const flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
+      if (Modernizr.testProp('transformStyle', 'preserve-3d')) {
+        $selectedElement.toggleClass('flipcard__flip');
+        this.setVisited(flipcardElementIndex);
+        return;
+      } 
+
+      const $frontflipcard = $selectedElement.find('.flipcard__item-front');
+      const $backflipcard = $selectedElement.find('.flipcard__item-back');
+      const flipTime = this.model.get('_flipTime') || 'fast';
+
+      if ($frontflipcard.is(':visible')) {
+        $frontflipcard.fadeOut(flipTime, () => {
+          $backflipcard.fadeIn(flipTime);
+        });
+      } else if ($backflipcard.is(':visible')) {
+        $backflipcard.fadeOut(flipTime, () => {
+          $frontflipcard.fadeIn(flipTime);
+        });
+      }
       this.setVisited(flipcardElementIndex);
     }
 
     // This function will be responsible to perform Single flip on flipcard where
     // only one card can flip and stay in the flipped state.
     performSingleFlip($selectedElement) {
-      const $items = $('.flipcard__item');
       const flipcardFlip = 'flipcard__flip';
       const flipcardContainer = $selectedElement.closest('.flipcard__widget');
       if (!Modernizr.testProp('transformStyle', 'preserve-3d')) {
@@ -126,17 +127,17 @@ define([
         const flipTime = this.model.get('_flipTime') || 'fast';
 
         if (backflipcard.is(':visible')) {
-          backflipcard.fadeOut(flipTime, function() {
+          backflipcard.fadeOut(flipTime, () => {
             frontflipcard.fadeIn(flipTime);
           });
         } else {
           const visibleflipcardBack = flipcardContainer.find('.flipcard__item-back:visible');
           if (visibleflipcardBack.length > 0) {
-            visibleflipcardBack.fadeOut(flipTime, function() {
+            visibleflipcardBack.fadeOut(flipTime, () => {
               flipcardContainer.find('.flipcard__item-front:hidden').fadeIn(flipTime);
             });
           }
-          frontflipcard.fadeOut(flipTime, function() {
+          frontflipcard.fadeOut(flipTime, () => {
             backflipcard.fadeIn(flipTime);
           });
         }
@@ -144,13 +145,23 @@ define([
         if ($selectedElement.hasClass(flipcardFlip)) {
           $selectedElement.removeClass(flipcardFlip);
         } else {
-          flipcardContainer.find($items).removeClass(flipcardFlip);
+          flipcardContainer.find($selectedElement).removeClass(flipcardFlip);
           $selectedElement.addClass(flipcardFlip);
         }
       }
 
       const flipcardElementIndex = this.$('.flipcard__item').index($selectedElement);
       this.setVisited(flipcardElementIndex);
+    }
+    
+    focusOnFlipcard($selectedElement) {
+      const classFlipcardFront = '.flipcard__item-front';
+      const classFlipcardBack = '.flipcard__item-back';
+
+      const delayTime = (this.model.get('_flipTime')) || 300;
+      _.delay(() => {
+        Adapt.a11y.focusFirst(($selectedElement.hasClass('flipcard__flip')) ? classFlipcardBack : classFlipcardFront);
+      }, delayTime);
     }
 
     // This function will set the visited status for particular flipcard item.
@@ -162,7 +173,7 @@ define([
 
     // This function will be used to get visited states of all flipcard items.
     getVisitedItems() {
-      return _.filter(this.model.get('_items'), function(item) {
+      return _.filter(this.model.get('_items'), item => {
         return item._isVisited;
       });
     }
@@ -176,7 +187,5 @@ define([
   };
 
   Adapt.register('flipcard', Flipcard);
-
   return Flipcard;
-
 });
